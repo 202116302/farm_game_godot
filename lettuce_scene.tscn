@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://722dtwbdobha"]
+
+[ext_resource type="Script" path="res://lettuce_scene.gd" id="1_q5mjy"]
+
+[node name="LettuceScene" type="Node2D"]
+position = Vector2(0, -8)
+script = ExtResource("1_q5mjy")
+
+[node name="LettuceSprite" type="Sprite2D" parent="."]
+position = Vector2(240, 480)
