@@ -12,8 +12,6 @@ var is_growing: bool = true
 var growth_stages: Array[Texture2D] = []
 
 func _ready():
-	# 위치를 0,0으로 고정
-	position = Vector2(0, 0)
 	# 텍스처 로드 및 배열에 추가
 	# res:// 경로는 실제 이미지 파일 경로로 수정해야 합니다
 	growth_stages = [
@@ -24,6 +22,10 @@ func _ready():
 	]
 	# 초기 이미지 설정
 	sprite.texture = growth_stages[0]
+	
+	z_index = 1 
+	
+	print("상추 생성됨 - 위치:", global_position, "z-index:", z_index)
 
 func _process(delta):
 	if is_growing and current_stage < growth_stages.size() - 1:
