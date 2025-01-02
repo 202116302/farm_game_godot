@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=4 uid="uid://x2oaqqleiiqt"]
+[gd_scene load_steps=10 format=4 uid="uid://x2oaqqleiiqt"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_rcftn"]
 [ext_resource type="Texture2D" uid="uid://cn5oghlhrkcb3" path="res://asset/sample2.jpg" id="2_vwk06"]
 [ext_resource type="Texture2D" uid="uid://dvjctwpbwp01h" path="res://asset/sample.jpg" id="3_4fjtn"]
 [ext_resource type="PackedScene" uid="uid://ll1i7ubcwyix" path="res://player.tscn" id="3_d5ums"]
 [ext_resource type="PackedScene" uid="uid://722dtwbdobha" path="res://lettuce_scene.tscn" id="5_10ljp"]
+[ext_resource type="PackedScene" uid="uid://bqp6bexf0w4gi" path="res://UI.tscn" id="6_57udu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aylqf"]
 texture = ExtResource("2_vwk06")
@@ -186,6 +187,7 @@ tile_map_data = PackedByteArray("AAD9//3/AAABAAEAAAD9//7/AAABAAIAAAD9////AAABAAM
 tile_set = SubResource("TileSet_xenvv")
 
 [node name="Player" parent="." instance=ExtResource("3_d5ums")]
+z_index = 2
 position = Vector2(-3, 2)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -193,3 +195,5 @@ position = Vector2(-3, 2)
 [node name="GameTimer" type="Timer" parent="."]
 
 [node name="LettuceScene" parent="." instance=ExtResource("5_10ljp")]
+
+[node name="UI" parent="." instance=ExtResource("6_57udu")]

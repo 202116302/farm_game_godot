@@ -1,10 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://722dtwbdobha"]
+[gd_scene load_steps=3 format=3 uid="uid://722dtwbdobha"]
 
 [ext_resource type="Script" path="res://lettuce_scene.gd" id="1_q5mjy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kk0gh"]
 
 [node name="LettuceScene" type="Node2D"]
 position = Vector2(0, -8)
 script = ExtResource("1_q5mjy")
 
 [node name="LettuceSprite" type="Sprite2D" parent="."]
-position = Vector2(240, 480)
+z_index = 1
+
+[node name="HarvestArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HarvestArea"]
+scale = Vector2(5, 5)
+shape = SubResource("CircleShape2D_kk0gh")
+one_way_collision_margin = 10.1
+
+[connection signal="body_entered" from="HarvestArea" to="." method="_on_harvest_area_entered"]
+[connection signal="body_exited" from="HarvestArea" to="." method="_on_harvest_area_exited"]
