@@ -12,7 +12,9 @@ var playing = false
 func _ready():
 	#screensize = get_viewport().get_visible_rect().size
 	screensize = Vector2(get_window().size)
-	$Player.screensize = screensize
+	if $Player.has_method("set_screensize"):  # 메서드를 통해 전달
+		$Player.set_screensize(screensize)
+	#$Player.screensize = screensize
 	#$Player.hide()
 	
  

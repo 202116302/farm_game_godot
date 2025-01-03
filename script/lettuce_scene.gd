@@ -30,20 +30,20 @@ func _ready():
 		preload("res://asset/lettuces/lettuce3-1.png")
 	]
 	# 초기 이미지 설정
-	sprite.texture = growth_stages[0]	
+	sprite.texture = growth_stages[0]
 	z_index = 1 
 	
 	# 심은 날짜 저장
 	var date_node = get_parent().get_node("/root/Main/UI/blank/Panel/Date")
 	if date_node:
-		planting_month = date_node.current_date["month"]
-		planting_day = date_node.current_date["day"]
+		planting_month = date_node.get_month()
+		planting_day = date_node.get_day()
 		print("상추를 심은 날: ", planting_month, "월 ", planting_day, "일")
 	
 	harvest_area.area_entered.connect(_on_harvest_area_entered)
 	harvest_area.area_exited.connect(_on_harvest_area_exited)
 	
-	print("상추 생성됨 - 위치:", global_position, "z-index:", z_index)
+	#print("상추 생성됨 - 위치:", global_position, "z-index:", z_index)
 	
 	if harvest_area:
 		print("HarvestArea 노드 찾음")
@@ -92,21 +92,22 @@ func _process(delta):
 	if is_growing and current_stage < growth_stages.size() - 1:
 		var date_node = get_parent().get_node("/root/Main/UI/blank/Panel/Date")
 		if date_node:
-			var current_month = date_node.current_date["month"]
-			var current_day = date_node.current_date["day"]
+			var current_month = date_node.get_month()
+			var current_day = date_node.get_day()
 			
 			var days_passed = calculate_days_passed(current_month, current_day)
 			
 			# 디버깅
-			print("현재 날짜: ", current_month, "월 ", current_day, "일")
-			print("심은 날짜: ", planting_month, "월 ", planting_day, "일")
-			print("지난 일수: ", days_passed, "일")
+			#print("현재 날짜: ", current_month, "월 ", current_day, "일")
+			#print("심은 날짜: ", planting_month, "월 ", planting_day, "일")
+			#print("지난 일수: ", days_passed, "일")
 			
 			# 7일마다 성장
-			var should_be_stage = int(days_passed / 7)
+			var should_be_stage = int(days_passed / 1)
 			
 			# 성장 단계 업데이트
 			if should_be_stage > current_stage and should_be_stage < growth_stages.size():
+				print("성장 단계 업데이트: ", current_stage, " -> ", should_be_stage)
 				advance_to_next_stage()
 
 func advance_to_next_stage():
@@ -125,6 +126,9 @@ func on_fully_grown():
 	is_growing = false
 	is_harvestable = true
 	print("상추가 완전히 자랐습니다!")
+	print("is_growing:", is_growing)
+	print("is_harvestable:", is_harvestable)
+	print("current_stage:", current_stage)
 
 # 외부에서 성장을 제어할 수 있는 메소드들
 func start_growing():
