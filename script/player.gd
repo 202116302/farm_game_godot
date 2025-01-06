@@ -131,15 +131,118 @@ func hoe_ground():
 # 타일 변경
 	change_to_tilled_soil(player_tile_pos)
 
-func change_to_tilled_soil(tile_pos: Vector2i):
-	var current_atlas_coords = background_tilemap.get_cell_atlas_coords(tile_pos)
-	var current_source_id = background_tilemap.get_cell_source_id(tile_pos)
-	
-	if current_source_id != -1:
-		var new_source_id = 1
-		var new_atlas_coords = Vector2i(1, 1)
-		background_tilemap.set_cell(tile_pos, new_source_id, new_atlas_coords)
 
+func check_over_ten(numbers: Array) -> bool:
+	return numbers.any(func(n): return n >= 10)
+
+func get_area_coordinates(center_pos: Vector2i, direction) -> bool:
+	var area_positions: Array[Vector2i] = [] 
+	var found_positions: Array = []
+	# -2부터 +2까지 순회 (5x5 영역)
+	if direction == 1: # 위 
+		for x in range(-1, 2):  
+			for y in range(-2, 0):
+				var pos = Vector2i(center_pos.x + x, center_pos.y + y)
+				area_positions.append(pos)
+	elif direction == 2: # 오른쪽
+		for x in range(1, 3):  
+			for y in range(-1, 2):
+				var pos = Vector2i(center_pos.x + x, center_pos.y + y)
+				area_positions.append(pos)
+	elif direction == 3: # 아래
+		for x in range(-1, 2):  
+			for y in range(1, 3):
+				var pos = Vector2i(center_pos.x + x, center_pos.y + y)
+				area_positions.append(pos)
+	elif direction == 4: #왼쪽
+		for x in range(-2, 0):  
+			for y in range(-1, 2):
+				var pos = Vector2i(center_pos.x + x, center_pos.y + y)
+				area_positions.append(pos)
+				
+	for cell_pos in area_positions:
+		var cell_source_id = background_tilemap.get_cell_source_id(cell_pos)
+		found_positions.append(cell_source_id)
+
+	return check_over_ten(found_positions)
+
+func find_tiles_with_source_id(source_id: int) -> Array[Vector2i]:
+	var found_positions: Array[Vector2i] = []
+	var used_cells = background_tilemap.get_used_cells()
+
+	
+	# 각 셀을 확인
+	for cell_pos in used_cells:
+		var cell_source_id = background_tilemap.get_cell_source_id(cell_pos)
+		if cell_source_id == source_id:
+			found_positions.append(cell_pos)
+			print("Found tile with source_id ", source_id, " at position: ", cell_pos)
+	
+	return found_positions
+
+func change_tilled(tile_pos: Vector2i, num):
+	var new_source_id = num
+	var possible_coords = [
+		Vector2i(0, 0),  # 왼쪽 위
+		Vector2i(1, 0),  # 오른쪽 위
+		Vector2i(0, 1),  # 왼쪽 아래
+		Vector2i(1, 1),
+		Vector2i(2, 0),  
+		Vector2i(0, 2),  
+		Vector2i(2, 1),  
+		Vector2i(1, 2),
+		Vector2i(2, 2)
+	]
+
+	for x in range(0, 3):  # 0, 1
+		for y in range(0, 3):  # 0, 1
+			var target_pos = Vector2i(tile_pos.x + x, tile_pos.y + y)
+			# 선택된 좌표로 타일 변경
+			var selected_coords = Vector2i(x, y)
+			background_tilemap.set_cell(target_pos, new_source_id, selected_coords)
+	
+func change_to_tilled_soil(tile_pos: Vector2i):
+	var hoe_tile = Vector2i(tile_pos.x + 3, tile_pos.y + 3)
+	var current_source_id = background_tilemap.get_cell_source_id(hoe_tile)
+	var near_tile_1 = get_area_coordinates(hoe_tile, 1)
+	var near_tile_2 = get_area_coordinates(hoe_tile, 2)
+	var near_tile_3 = get_area_coordinates(hoe_tile, 3)
+	var near_tile_4 = get_area_coordinates(hoe_tile, 4)
+	
+	if current_source_id < 10:
+		if near_tile_1 and !near_tile_2 and near_tile_3 and !near_tile_4:
+			change_tilled(hoe_tile, 10)
+		elif near_tile_1 and near_tile_2 and !near_tile_3 and !near_tile_4:
+			change_tilled(hoe_tile, 11)
+		elif near_tile_1 and !near_tile_2 and !near_tile_3 and !near_tile_4:
+			change_tilled(hoe_tile, 12)
+		elif near_tile_1 and !near_tile_2 and !near_tile_3 and near_tile_4:
+			change_tilled(hoe_tile, 13)
+		elif !near_tile_1 and !near_tile_2 and !near_tile_3 and near_tile_4:
+			change_tilled(hoe_tile, 14)
+		elif near_tile_1 and near_tile_2 and !near_tile_3 and near_tile_4:
+			change_tilled(hoe_tile, 15)
+		elif !near_tile_1 and near_tile_2 and !near_tile_3 and near_tile_4:
+			change_tilled(hoe_tile, 16)
+		elif !near_tile_1 and !near_tile_2 and near_tile_3 and !near_tile_4:
+			change_tilled(hoe_tile, 17)
+		elif !near_tile_1 and !near_tile_2 and !near_tile_3 and !near_tile_4:
+			change_tilled(hoe_tile, 18)
+		elif !near_tile_1 and !near_tile_2 and near_tile_3 and near_tile_4:
+			change_tilled(hoe_tile, 19)
+		elif !near_tile_1 and near_tile_2 and near_tile_3 and near_tile_4:
+			change_tilled(hoe_tile, 20)
+		elif near_tile_1 and near_tile_2 and near_tile_3 and !near_tile_4:
+			change_tilled(hoe_tile, 21)
+		elif near_tile_1 and near_tile_2 and near_tile_3 and near_tile_4:
+			change_tilled(hoe_tile, 22)
+		elif !near_tile_1 and near_tile_2 and near_tile_3 and !near_tile_4:
+			change_tilled(hoe_tile, 23)
+		elif near_tile_1 and !near_tile_2 and near_tile_3 and near_tile_4:
+			change_tilled(hoe_tile, 24)
+		elif !near_tile_1 and near_tile_2 and !near_tile_3 and !near_tile_4:
+			change_tilled(hoe_tile, 25)
+			
 var planted_crops = {}  # Dictionary to track planted lettuce scenes
 var lettuce_scene = preload("res://scene/lettuce_scene.tscn") 
 

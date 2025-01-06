@@ -2,7 +2,7 @@ extends Label
 
 var current_date: Dictionary
 var timer = 0
-const DAY_DURATION = 30  # 30초
+const DAY_DURATION = 10  # 30초
 
 func _ready():
 	# 시작 날짜를 3월 1일로 설정
