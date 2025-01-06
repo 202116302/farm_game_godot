@@ -38,22 +38,43 @@ func _input(event):
 		$AnimatedSprite2D.play()
 		$AnimatedSprite2D.animation = "seed"
 		plant_lettuce()
-   
-func get_nearby_lettuce() -> Node2D:
-	# 플레이어의 현재 타일 위치
+		
+	if Input.is_action_pressed("harvest_action"):
+		#var lettuce = await get_nearby_lettuce()
+		#if lettuce and lettuce.player_in_range and lettuce.is_harvestable:
+			#print("d")
+			#$AnimatedSprite2D.play()
+			#$AnimatedSprite2D.animation = "harvest"
+			#await $AnimatedSprite2D.animation_finished
+			#lettuce.harvest()
+			#harvested_lettuce_count += 1
+			#update_harvest_count()
+		harvest_nearby_lettuce()
+
+func harvest_nearby_lettuce():
 	var center_tile = background_tilemap.local_to_map(global_position)
-	
+   
 	# 주변 타일 확인 (3x3 영역)
-	for dx in range(-1, 2):  # -1, 0, 1
-		for dy in range(-1, 2):  # -1, 0, 1
+	for dx in range(-2, 3):  # -1, 0, 1
+		for dy in range(-2, 3):  # -1, 0, 1
 			var check_tile = Vector2i(center_tile.x + dx, center_tile.y + dy)
 			if planted_crops.has(check_tile):
 				var lettuce = planted_crops[check_tile]["instance"]
-				if lettuce and lettuce.player_in_range:
-					return lettuce
-	return null
+				if is_instance_valid(lettuce) and lettuce.player_in_range and lettuce.is_harvestable:
+					$AnimatedSprite2D.play()
+					$AnimatedSprite2D.animation = "harvest"
+					await $AnimatedSprite2D.animation_finished
+					lettuce.harvest()
+					harvested_lettuce_count += 1
+					update_harvest_count()
+					# 수확된 상추를 planted_crops에서 제거
+					planted_crops.erase(check_tile)
+					return
+				elif not is_instance_valid(lettuce):
+					# 이미 제거된 상추는 planted_crops에서 제거
+					planted_crops.erase(check_tile)
 	
-	if Input.is_action_pressed("harvest_action"):
+
 		#var lettuce = get_node("/root/Main/LettuceScene")
 		#var tile_pos = background_tilemap.local_to_map(global_position)
 		#var lettuce = planted_crops[tile_pos]["instance"] if planted_crops.has(tile_pos) else null
@@ -93,15 +114,6 @@ func get_nearby_lettuce() -> Node2D:
 		#else:
 			#print("이 위치에 상추가 없음")
 			
-			
-		var lettuce = await get_nearby_lettuce()
-		if lettuce and lettuce.player_in_range and lettuce.is_harvestable:
-			$AnimatedSprite2D.play()
-			$AnimatedSprite2D.animation = "harvest"
-			await $AnimatedSprite2D.animation_finished
-			lettuce.harvest()
-			harvested_lettuce_count += 1
-			update_harvest_count()
 
 # 수확 카운트 표시 업데이트 함수
 func update_harvest_count():

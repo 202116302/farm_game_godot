@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5m1ahjh2clkr"]
+
+[ext_resource type="FontFile" uid="uid://bamhjoqbomjc2" path="res://asset/font/font2.ttf" id="1_1nuwk"]
+[ext_resource type="Script" path="res://script/date.gd" id="2_yk1sg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o1n6i"]
+bg_color = Color(0.72549, 0.717647, 0.207843, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24lr0"]
+bg_color = Color(0.6, 0.6, 0.309804, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ato04"]
+font = ExtResource("1_1nuwk")
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_yi6gc"]
+font = ExtResource("1_1nuwk")
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="blank" type="Panel" parent="."]
+custom_minimum_size = Vector2(200, 100)
+offset_right = 200.0
+offset_bottom = 100.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_o1n6i")
+
+[node name="Panel" type="Panel" parent="blank"]
+layout_mode = 1
+offset_right = 200.0
+offset_bottom = 100.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_24lr0")
+
+[node name="Date" type="Label" parent="blank/Panel"]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 120.0
+offset_bottom = 40.0
+text = "3월 24일"
+label_settings = SubResource("LabelSettings_ato04")
+script = ExtResource("2_yk1sg")
+
+[node name="lettuce" type="Label" parent="blank/Panel"]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 40.0
+offset_right = 120.0
+offset_bottom = 63.0
+label_settings = SubResource("LabelSettings_yi6gc")
+visible_characters_behavior = 3

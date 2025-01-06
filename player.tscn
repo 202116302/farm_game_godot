@@ -1,6 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://ll1i7ubcwyix"]
+[gd_scene load_steps=21 format=3 uid="uid://du6cabiwklx2u"]
 
-[ext_resource type="Script" path="res://script/player.gd" id="1_gkfvj"]
+[ext_resource type="Script" path="res://player.gd" id="1_gkfvj"]
 [ext_resource type="Texture2D" uid="uid://c8v3dfhh3qdnk" path="res://asset/player/defalut.png" id="2_x1dki"]
 [ext_resource type="Texture2D" uid="uid://cnv18lrdyix7j" path="res://asset/player/Harvest/F0.png" id="3_ak38w"]
 [ext_resource type="Texture2D" uid="uid://dih3ia0ayrbdl" path="res://asset/player/walk/walk1.png" id="3_yt45t"]
@@ -143,7 +143,6 @@ metadata/_edit_group_ = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_isnnn")
-animation = &"seed"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_110ga")
