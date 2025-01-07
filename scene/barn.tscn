@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://2roi4uoduehv"]
+
+[ext_resource type="Script" path="res://script/barn.gd" id="1_dcncn"]
+[ext_resource type="Texture2D" uid="uid://btp7bydfx0cfx" path="res://asset/object/barn3.png" id="1_yy32s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqodv"]
+size = Vector2(90.5, 69.5)
+
+[node name="barn" type="Node2D"]
+script = ExtResource("1_dcncn")
+
+[node name="Barn_image" type="Sprite2D" parent="."]
+position = Vector2(429.75, -12.25)
+scale = Vector2(4.53906, 4.53906)
+texture = ExtResource("1_yy32s")
+
+[node name="enterance" type="Area2D" parent="."]
+
+[node name="enter_collision" type="CollisionShape2D" parent="enterance"]
+position = Vector2(426.75, 101.25)
+shape = SubResource("RectangleShape2D_aqodv")

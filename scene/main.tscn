@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://x2oaqqleiiqt"]
+[gd_scene load_steps=51 format=4 uid="uid://x2oaqqleiiqt"]
 
 [ext_resource type="Script" path="res://script/main.gd" id="1_rcftn"]
 [ext_resource type="Texture2D" uid="uid://c2ah7ia80wx5n" path="res://asset/tile/Grasstile/F0.png" id="2_nxrc2"]
@@ -25,6 +25,9 @@
 [ext_resource type="Texture2D" uid="uid://dt4pc37ppwe24" path="res://asset/tile/Soiltile/64/13.png" id="18_f8sk3"]
 [ext_resource type="Texture2D" uid="uid://c2ygnti4ybykn" path="res://asset/tile/Soiltile/64/14.png" id="19_kklk8"]
 [ext_resource type="Texture2D" uid="uid://bbykpbms5mfk1" path="res://asset/tile/Soiltile/64/15.png" id="20_ho5de"]
+[ext_resource type="PackedScene" uid="uid://bqpi17qy8haio" path="res://scene/field.tscn" id="26_ia1m0"]
+[ext_resource type="PackedScene" uid="uid://2roi4uoduehv" path="res://scene/barn.tscn" id="27_0ln6o"]
+[ext_resource type="Script" path="res://script/barn.gd" id="28_sdc5j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hnpik"]
 texture = ExtResource("2_nxrc2")
@@ -286,10 +289,19 @@ tile_set = SubResource("TileSet_5vxs0")
 [node name="GameTimer" type="Timer" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("3_d5ums")]
-position = Vector2(0, -8)
+z_index = 1
+position = Vector2(323, 205)
 
 [node name="LettuceScene" parent="." instance=ExtResource("5_10ljp")]
 
 [node name="UI" parent="." instance=ExtResource("6_57udu")]
 
+[node name="field" parent="." instance=ExtResource("26_ia1m0")]
+position = Vector2(-47, -17)
+
+[node name="barn" parent="." instance=ExtResource("27_0ln6o")]
+position = Vector2(-48, -177)
+script = ExtResource("28_sdc5j")
+
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-1, 7)

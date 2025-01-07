@@ -22,6 +22,8 @@ func _ready():
 	else:
 		print("Label 노드를 찾을 수 없습니다")
 		push_error("Label 노드를 찾을 수 없습니다")
+		
+	add_to_group("player")
 
 func _input(event):
 # 마우스 클릭 또는 지정된 키를 눌렀을 때 괭이질 실행
@@ -53,6 +55,7 @@ func _input(event):
 
 func harvest_nearby_lettuce():
 	var center_tile = background_tilemap.local_to_map(global_position)
+	
    
 	# 주변 타일 확인 (3x3 영역)
 	for dx in range(-2, 3):  # -1, 0, 1
@@ -113,7 +116,7 @@ func harvest_nearby_lettuce():
 				#print("플레이어가 수확 범위 밖에 있음")
 		#else:
 			#print("이 위치에 상추가 없음")
-			
+
 
 # 수확 카운트 표시 업데이트 함수
 func update_harvest_count():
@@ -228,7 +231,7 @@ func change_to_tilled_soil(tile_pos: Vector2i):
 			change_tilled(hoe_tile, 17)
 		elif !near_tile_1 and !near_tile_2 and !near_tile_3 and !near_tile_4:
 			change_tilled(hoe_tile, 18)
-		elif !near_tile_1 and !near_tile_2 and near_tile_3 and near_tile_4:
+		elif !near_tile_1 and !near_tile_2 and !near_tile_3 and near_tile_4:
 			change_tilled(hoe_tile, 19)
 		elif !near_tile_1 and near_tile_2 and near_tile_3 and near_tile_4:
 			change_tilled(hoe_tile, 20)
@@ -249,11 +252,12 @@ var lettuce_scene = preload("res://scene/lettuce_scene.tscn")
 func plant_lettuce():
 	var tile_pos = background_tilemap.local_to_map(global_position)
 	var current_atlas_coords = background_tilemap.get_cell_atlas_coords(tile_pos)
+	var target_pos = Vector2i(tile_pos.x + 4, tile_pos.y + 4)
 	
 	if current_atlas_coords == Vector2i(1, 1):
 		# 해당 위치에 이미 심어진 상추가 있는지 확인
-		if planted_crops.has(tile_pos):
-			var existing_lettuce = planted_crops[tile_pos]["instance"]
+		if planted_crops.has(target_pos):
+			var existing_lettuce = planted_crops[target_pos]["instance"]
 			# 상추가 존재하고 아직 유효한지 확인
 			if is_instance_valid(existing_lettuce):
 				print("이미 이 위치에 상추가 심어져 있습니다!")
@@ -263,10 +267,10 @@ func plant_lettuce():
 		var lettuce = lettuce_scene.instantiate()
 		get_node("/root/Main").add_child(lettuce)
 		
-		var world_pos = background_tilemap.map_to_local(tile_pos)
+		var world_pos = background_tilemap.map_to_local(target_pos)
 		lettuce.global_position = world_pos
 		
-		planted_crops[tile_pos] = {
+		planted_crops[target_pos] = {
 			"instance": lettuce,
 			"plant_time": Time.get_unix_time_from_system()
 		}

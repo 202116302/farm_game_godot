@@ -170,6 +170,7 @@ animations = [{
 size = Vector2(74, 110)
 
 [node name="Player" type="Area2D"]
+position = Vector2(466, 208)
 script = ExtResource("1_gkfvj")
 metadata/_edit_group_ = true
 
