@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2kn57hccxfcd"]
+
+[ext_resource type="Script" path="res://script/barn_menu.gd" id="1_4nk5d"]
+[ext_resource type="Texture2D" uid="uid://bneq2iesevs5v" path="res://asset/object/barn_menu.png" id="2_eldcb"]
+
+[node name="barn_menu" type="Control"]
+visibility_layer = 2
+layout_mode = 3
+anchor_left = -0.475
+anchor_top = -0.59
+anchor_right = 0.497
+anchor_bottom = 0.432
+offset_left = 547.2
+offset_top = 382.32
+offset_right = 579.456
+offset_bottom = 368.064
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4nk5d")
+
+[node name="background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.137255, 0.137255, 0.137255, 0.768627)
+
+[node name="menu_window" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -274.0
+offset_right = 450.0
+offset_bottom = 276.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_eldcb")
+
+[node name="calender" type="GridContainer" parent="menu_window"]
+custom_minimum_size = Vector2(350, 300)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.299
+anchor_top = 0.603
+anchor_right = 0.299
+anchor_bottom = 0.603
+offset_left = -175.1
+offset_top = -160.65
+offset_right = 174.9
+offset_bottom = 156.35
+columns = 7
+
+[node name="Button" type="Button" parent="menu_window"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.136
+anchor_top = 0.082
+anchor_right = 0.136
+anchor_bottom = 0.082
+offset_left = 677.6
+offset_top = 32.9
+offset_right = 685.6
+offset_bottom = 41.9

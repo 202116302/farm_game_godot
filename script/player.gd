@@ -1,4 +1,4 @@
-extends Area2D
+extends CharacterBody2D
 
 @onready var background_tilemap = get_parent().get_node("Background")
 var layer_id = 0  # 새로 추가된 레이어 ID 변수

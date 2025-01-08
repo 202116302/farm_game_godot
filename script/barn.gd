@@ -4,11 +4,16 @@ extends Node2D
 var prompt_label: Label
 var can_interact = false
 
+
 func _ready():
+
+	var font = load("res://asset/font/font2.ttf")  # .ttf 또는 .otf 파일 경로
 
 	# 프롬프트 텍스트 설정
 	prompt_label = Label.new()
 	prompt_label.text = "SPACE"
+	prompt_label.add_theme_font_override("font", font)
+	prompt_label.add_theme_font_size_override("font_size", 24)
 	prompt_label.visible = false
 	add_child(prompt_label)
 	
@@ -21,14 +26,17 @@ func _process(delta):
 		_show_menu()
 	
 	# 프롬프트 텍스트 위치 업데이트
-	if prompt_label.visible:
-		var player = get_node("/root/Main/Player")  # 플레이어 노드 경로 조정 필요
-		prompt_label.global_position = player.global_position + Vector2(0, -100)  # 텍스트 위치 조정
+	#if prompt_label.visible:
+		#var player = get_node("/root/Main/Player")  # 플레이어 노드 경로 조정 필요
+		#prompt_label.global_position = player.global_position + Vector2(0, -100)  # 텍스트 위치 조정
 
 func _on_area_entered(body):
 	if body.is_in_group("player"):  # 플레이어 노드에 "player" 그룹 추가 필요
 		can_interact = true
 		prompt_label.visible = true
+		print("d")
+		var player = get_node("/root/Main/Player")  # 플레이어 노드 경로 조정 필요
+		prompt_label.global_position = Vector2(340, -240) 
 
 func _on_area_exited(body):
 	if body.is_in_group("player"):
@@ -36,7 +44,5 @@ func _on_area_exited(body):
 		prompt_label.visible = false
 
 func _show_menu():
-	# 여기에 메뉴 표시 로직 추가
-	print("메뉴 열기")
-	# 예: var menu = preload("res://menu.tscn").instantiate()
-	#     add_child(menu)
+	var menu = preload("res://scene/barn_menu.tscn").instantiate()
+	add_child(menu)

@@ -17,5 +17,8 @@ texture = ExtResource("1_yy32s")
 [node name="enterance" type="Area2D" parent="."]
 
 [node name="enter_collision" type="CollisionShape2D" parent="enterance"]
-position = Vector2(426.75, 101.25)
+position = Vector2(424, -8)
 shape = SubResource("RectangleShape2D_aqodv")
+
+[connection signal="body_entered" from="enterance" to="." method="_on_area_entered"]
+[connection signal="body_exited" from="enterance" to="." method="_on_area_exited"]

@@ -27,7 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://bbykpbms5mfk1" path="res://asset/tile/Soiltile/64/15.png" id="20_ho5de"]
 [ext_resource type="PackedScene" uid="uid://bqpi17qy8haio" path="res://scene/field.tscn" id="26_ia1m0"]
 [ext_resource type="PackedScene" uid="uid://2roi4uoduehv" path="res://scene/barn.tscn" id="27_0ln6o"]
-[ext_resource type="Script" path="res://script/barn.gd" id="28_sdc5j"]
+[ext_resource type="PackedScene" uid="uid://b2kn57hccxfcd" path="res://scene/barn_menu.tscn" id="28_cstnk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hnpik"]
 texture = ExtResource("2_nxrc2")
@@ -301,7 +301,13 @@ position = Vector2(-47, -17)
 
 [node name="barn" parent="." instance=ExtResource("27_0ln6o")]
 position = Vector2(-48, -177)
-script = ExtResource("28_sdc5j")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-1, 7)
+
+[node name="barn_menu" parent="." instance=ExtResource("28_cstnk")]
+z_index = 1
+offset_left = -43.8
+offset_top = 40.32
+offset_right = 10.456
+offset_bottom = 69.064
