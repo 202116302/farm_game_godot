@@ -4,9 +4,22 @@ var current_month = 3  # 3월부터 시작
 var current_year = 2024
 
 func _ready():
+	update_month_display()
+	inventory_text()
 	create_calendar()
-	$menu_window/Button.pressed.connect(func(): queue_free())
+	$menu_window/Button.pressed.connect(func(): hide())
+	hide()
+		
 
+func inventory_text():
+	var inven_text = $menu_window/inven_text
+	inven_text.text = "수확개수"
+	
+func update_month_display():
+	# 월 표시 Label이 있다고 가정
+	var month_label = $menu_window/month_label  # Label 노드의 경로에 맞게 수정
+	month_label.text = str(current_month) + "월"
+	
 func create_calendar():
 	var grid = $menu_window/calender  # GridContainer 노드가 필요합니다
 	
@@ -46,4 +59,4 @@ func create_calendar():
 		
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):  # ESC
-		queue_free()
+		hide()

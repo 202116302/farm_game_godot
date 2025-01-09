@@ -56,13 +56,15 @@ func _input(event):
 func harvest_nearby_lettuce():
 	var center_tile = background_tilemap.local_to_map(global_position)
 	
-   
+	print("d")
 	# 주변 타일 확인 (3x3 영역)
 	for dx in range(-2, 3):  # -1, 0, 1
 		for dy in range(-2, 3):  # -1, 0, 1
 			var check_tile = Vector2i(center_tile.x + dx, center_tile.y + dy)
 			if planted_crops.has(check_tile):
+				print(check_tile)
 				var lettuce = planted_crops[check_tile]["instance"]
+				print(lettuce.player_in_range)
 				if is_instance_valid(lettuce) and lettuce.player_in_range and lettuce.is_harvestable:
 					$AnimatedSprite2D.play()
 					$AnimatedSprite2D.animation = "harvest"

@@ -26,7 +26,7 @@ func _process(delta):
 		var next_date = Time.get_datetime_dict_from_unix_time(next_time)
 		
 		# 디버깅: 다음 날짜 정보 확인
-		print("Next date dictionary: ", next_date)
+		#print("Next date dictionary: ", next_date)
 		
 		# Dictionary 형식 확인 후 할당
 		if typeof(next_date) == TYPE_DICTIONARY:

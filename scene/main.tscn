@@ -293,6 +293,7 @@ z_index = 1
 position = Vector2(323, 205)
 
 [node name="LettuceScene" parent="." instance=ExtResource("5_10ljp")]
+position = Vector2(-1, 0)
 
 [node name="UI" parent="." instance=ExtResource("6_57udu")]
 
@@ -307,7 +308,11 @@ position = Vector2(-1, 7)
 
 [node name="barn_menu" parent="." instance=ExtResource("28_cstnk")]
 z_index = 1
-offset_left = -43.8
-offset_top = 40.32
-offset_right = 10.456
-offset_bottom = 69.064
+anchor_left = -0.51
+anchor_top = -0.452
+anchor_right = 0.51
+anchor_bottom = 0.614
+offset_left = -2.47992
+offset_top = 19.896
+offset_right = -3.52008
+offset_bottom = 20.128

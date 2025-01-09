@@ -3,7 +3,8 @@ extends Node2D
 # 상호작용 영역과 텍스트를 위한 변수들
 var prompt_label: Label
 var can_interact = false
-
+var menu_scene = preload("res://scene/barn_menu.tscn")
+var menu_instance = null
 
 func _ready():
 
@@ -20,10 +21,15 @@ func _ready():
 	# 시그널 연결
 	$enterance.body_entered.connect(_on_area_entered)
 	$enterance.body_exited.connect(_on_area_exited)
-
+	
+	menu_instance = menu_scene.instantiate()
+	add_child(menu_instance)  # 현재 노드의 자식으로 추가 # 처음에는 숨기기
+	
 func _process(delta):
 	if can_interact and Input.is_action_just_pressed("ui_accept"):  # 스페이스바
-		_show_menu()
+		#_show_menu()
+		menu_instance.visible = !menu_instance.visible
+	
 	
 	# 프롬프트 텍스트 위치 업데이트
 	#if prompt_label.visible:
@@ -43,6 +49,6 @@ func _on_area_exited(body):
 		can_interact = false
 		prompt_label.visible = false
 
-func _show_menu():
-	var menu = preload("res://scene/barn_menu.tscn").instantiate()
-	add_child(menu)
+#func _show_menu():
+	#var menu = preload("res://scene/barn_menu.tscn").instantiate()
+	#add_child(menu)

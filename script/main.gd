@@ -14,6 +14,8 @@ func _ready():
 	screensize = Vector2(get_window().size)
 	if $Player.has_method("set_screensize"):  # 메서드를 통해 전달
 		$Player.set_screensize(screensize)
+		
+	$barn_menu.hide()
 	#$Player.screensize = screensize
 	#$Player.hide()
 	

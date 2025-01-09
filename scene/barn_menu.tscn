@@ -1,19 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2kn57hccxfcd"]
+[gd_scene load_steps=6 format=3 uid="uid://b2kn57hccxfcd"]
 
 [ext_resource type="Script" path="res://script/barn_menu.gd" id="1_4nk5d"]
 [ext_resource type="Texture2D" uid="uid://bneq2iesevs5v" path="res://asset/object/barn_menu.png" id="2_eldcb"]
+[ext_resource type="FontFile" uid="uid://bp3qhqkvcxah4" path="res://asset/font/font2.ttf" id="3_13i36"]
+[ext_resource type="Texture2D" uid="uid://cdppvktakwai2" path="res://asset/object/menu_object2.png" id="4_c10j7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kr41p"]
+font = ExtResource("3_13i36")
+font_size = 20
 
 [node name="barn_menu" type="Control"]
 visibility_layer = 2
+z_index = 2
 layout_mode = 3
 anchor_left = -0.475
 anchor_top = -0.59
 anchor_right = 0.497
 anchor_bottom = 0.432
-offset_left = 547.2
-offset_top = 382.32
-offset_right = 579.456
-offset_bottom = 368.064
+offset_left = -28.8
+offset_top = 137.32
+offset_right = 3.45599
+offset_bottom = 123.064
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4nk5d")
@@ -23,6 +30,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.137255, 0.137255, 0.137255, 0.768627)
 
 [node name="menu_window" type="TextureRect" parent="."]
@@ -32,13 +41,26 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -450.0
-offset_top = -274.0
-offset_right = 450.0
-offset_bottom = 276.0
+offset_left = -432.0
+offset_top = -295.0
+offset_right = 468.0
+offset_bottom = 255.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_eldcb")
+
+[node name="month_label" type="Label" parent="menu_window"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.109
+anchor_top = 0.224
+anchor_right = 0.153
+anchor_bottom = 0.265
+offset_left = -0.100006
+offset_top = -0.200005
+offset_right = 24.3
+offset_bottom = 9.24998
+label_settings = SubResource("LabelSettings_kr41p")
 
 [node name="calender" type="GridContainer" parent="menu_window"]
 custom_minimum_size = Vector2(350, 300)
@@ -65,3 +87,28 @@ offset_left = 677.6
 offset_top = 32.9
 offset_right = 685.6
 offset_bottom = 41.9
+
+[node name="inventory" type="TextureRect" parent="menu_window"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.544
+anchor_top = 0.253
+anchor_right = 0.856
+anchor_bottom = 0.485
+offset_left = -9.60004
+offset_top = -3.15001
+offset_right = 19.5999
+offset_bottom = 10.25
+texture = ExtResource("4_c10j7")
+
+[node name="inven_text" type="Label" parent="menu_window"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.618
+anchor_top = 0.305
+anchor_right = 0.622
+anchor_bottom = 0.312
+offset_left = -44.2
+offset_top = -15.75
+offset_right = 0.199951
+offset_bottom = 3.39999

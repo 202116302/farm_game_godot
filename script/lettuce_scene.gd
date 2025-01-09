@@ -56,15 +56,15 @@ func _ready():
 	var connections = harvest_area.get_signal_connection_list("body_entered")
 	print("body_entered 신호 연결 상태:", connections)
 
-func _on_harvest_area_entered(area: Area2D):
-	print("무언가가 영역에 들어왔습니다:", area.name)
-	if area.name == "Player":
+func _on_harvest_area_entered(body: CharacterBody2D):
+	print("무언가가 영역에 들어왔습니다:", body.name)
+	if body.name == "Player":
 		player_in_range = true
 		print("플레이어가 상추 수확 범위에 들어왔습니다")
 
-func _on_harvest_area_exited(area: Area2D):
-	print("무언가가 영역에 들어왔습니다:", area.name) 
-	if area.name == "Player":
+func _on_harvest_area_exited(body: CharacterBody2D):
+	print("무언가가 영역에 들어왔습니다:", body.name) 
+	if body.name == "Player":
 		player_in_range = false
 
 func calculate_days_passed(current_month: int, current_day: int) -> int:
