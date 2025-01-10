@@ -61,7 +61,7 @@ func _on_harvest_area_entered(body: CharacterBody2D):
 	if body.name == "Player":
 		player_in_range = true
 		print("플레이어가 상추 수확 범위에 들어왔습니다")
-
+ 
 func _on_harvest_area_exited(body: CharacterBody2D):
 	print("무언가가 영역에 들어왔습니다:", body.name) 
 	if body.name == "Player":

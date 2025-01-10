@@ -10,7 +10,23 @@ func _ready():
 	$menu_window/Button.pressed.connect(func(): hide())
 	hide()
 		
+func update_lettuce_display():
+	var lettuce1 = $menu_window/lettuce1  # TextureRect
+	var lettuce2 = $menu_window/lettuce2  # TextureRect
+	var lettuce3 = $menu_window/lettuce3  # TextureRect
+	var count_label = $menu_window/lettuce_count
+	var player = get_node("/root/Main/Player")
 
+	if player:
+		var count = player.harvested_lettuce_count
+		
+		lettuce1.visible = count >= 1
+		lettuce2.visible = count >= 6
+		lettuce3.visible = count >= 11
+		
+		count_label.text = "수확한 상추: " + str(count) + "개"
+		
+		
 func inventory_text():
 	var inven_text = $menu_window/inven_text
 	inven_text.text = "수확개수"
