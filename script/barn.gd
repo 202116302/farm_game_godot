@@ -40,7 +40,6 @@ func _on_area_entered(body):
 	if body.is_in_group("player"):  # 플레이어 노드에 "player" 그룹 추가 필요
 		can_interact = true
 		prompt_label.visible = true
-		print("d")
 		var player = get_node("/root/Main/Player")  # 플레이어 노드 경로 조정 필요
 		prompt_label.global_position = Vector2(340, -240) 
 

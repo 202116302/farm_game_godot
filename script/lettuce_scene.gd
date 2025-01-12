@@ -31,7 +31,7 @@ func _ready():
 	]
 	# 초기 이미지 설정
 	sprite.texture = growth_stages[0]
-	z_index = 1 
+	z_index = 0 
 	
 	# 심은 날짜 저장
 	var date_node = get_parent().get_node("/root/Main/UI/blank/Panel/Date")
