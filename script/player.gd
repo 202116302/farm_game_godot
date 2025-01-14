@@ -1,6 +1,9 @@
 extends CharacterBody2D
 
 @onready var background_tilemap = get_parent().get_node("Background")
+var current_field = null
+var current_collision_path = null
+
 var layer_id = 0  # 새로 추가된 레이어 ID 변수
 
 # 괭이질 관련 변수
@@ -24,6 +27,11 @@ func _ready():
 		push_error("Label 노드를 찾을 수 없습니다")
 		
 	add_to_group("player")
+
+	var feet_area = $feat_area/feat_area # 플레이어의 자식 노드로 추가된 Area2D
+	if feet_area:
+		feet_area.area_entered.connect(_on_feet_area_entered)
+		feet_area.area_exited.connect(_on_feet_area_exited)
 
 func _input(event):
 # 마우스 클릭 또는 지정된 키를 눌렀을 때 괭이질 실행
@@ -55,8 +63,7 @@ func _input(event):
 
 func harvest_nearby_lettuce():
 	var center_tile = background_tilemap.local_to_map(global_position)
-	
-	print("d")
+
 	# 주변 타일 확인 (3x3 영역)
 	for dx in range(-2, 3):  # -1, 0, 1
 		for dy in range(-2, 3):  # -1, 0, 1
@@ -80,87 +87,92 @@ func harvest_nearby_lettuce():
 					planted_crops.erase(check_tile)
 	
 
-		#var lettuce = get_node("/root/Main/LettuceScene")
-		#var tile_pos = background_tilemap.local_to_map(global_position)
-		#var lettuce = planted_crops[tile_pos]["instance"] if planted_crops.has(tile_pos) else null
-		#print(lettuce.current_stage)
-		#if lettuce and lettuce.player_in_range and lettuce.is_harvestable:
-			#$AnimatedSprite2D.play()
-			#$AnimatedSprite2D.animation = "harvest" 
-			#print("수확 전 성장 단계:", lettuce.current_stage) 
-			### 애니메이션이 끝나면 상추를 수확
-			#await $AnimatedSprite2D.animation_finished
-			#lettuce.harvest()
-			## 수확 카운트 증가 및 표시 업데이트
-			#harvested_lettuce_count += 1
-			#update_harvest_count()
-			
-				# 각 조건 개별 확인
-		#if lettuce:
-			#print("상추 찾음")
-			#print("player_in_range:", lettuce.player_in_range)
-			#print("is_harvestable:", lettuce.is_harvestable)
-			#print("current_stage:", lettuce.current_stage)
-		#
-			#if lettuce.player_in_range:
-				#print("플레이어가 수확 범위 안에 있음")
-				#if lettuce.is_harvestable:
-					#print("수확 가능한 상태임")
-					#$AnimatedSprite2D.play()
-					#$AnimatedSprite2D.animation = "harvest"
-					#await $AnimatedSprite2D.animation_finished
-					#lettuce.harvest()
-					#harvested_lettuce_count += 1
-					#update_harvest_count()
-				#else:
-					#print("아직 수확할 수 없는 상태")
-			#else:
-				#print("플레이어가 수확 범위 밖에 있음")
-		#else:
-			#print("이 위치에 상추가 없음")
-
 
 # 수확 카운트 표시 업데이트 함수
 func update_harvest_count():
 	count_label.text = "수확한 상추: " + str(harvested_lettuce_count)
 	#count_label.text = count_label.text 
 	
+func _on_feet_area_entered(area: Area2D):
+	if area.is_in_group("farm_field"):
+		current_field = area
+		# 현재 충돌한 Area2D의 자식 CollisionShape2D 찾기
+		for child in area.get_children():
+			if child is CollisionShape2D:
+			# NodePath로 경로 저장
+				current_collision_path = NodePath(child.name)
+				print("충돌한 Collision: ", child.name)
+				break
+		print("농장 영역(" + area.name + ")에 들어왔습니다")
+
+func _on_feet_area_exited(area: Area2D):
+	if area.is_in_group("farm_field"):
+		if current_field == area:
+			current_field = null
+		print("농장 영역(" + area.name + ")에서 나갔습니다")
+
 func hoe_ground():
-	if not background_tilemap:
+	#if not background_tilemap:
+		#return
+#
+## 플레이어 위치를 타일맵 좌표로 변환
+	#var player_tile_pos = background_tilemap.local_to_map(global_position)
+	#print("Player tile position: ", player_tile_pos)
+#
+## 타일 변경
+	#change_to_tilled_soil(player_tile_pos)
+	
+	if not background_tilemap or not current_field:
 		return
+			
+	# 현재 필드의 영역 내 타일만 변경
+	var field_collision = current_field.get_node(current_collision_path)
+	var center_pos = field_collision.position # 콜리전 중심점 
+	
+	var field_shape = field_collision.shape as RectangleShape2D
+	
+	var tile_size = Vector2(background_tilemap.tile_set.tile_size)
+	var field_pos = background_tilemap.local_to_map(current_field.global_position + center_pos - field_shape.size/2)
+	var field_size = field_shape.size / tile_size
 
-# 플레이어 위치를 타일맵 좌표로 변환
-	var player_tile_pos = background_tilemap.local_to_map(global_position)
-	print("Player tile position: ", player_tile_pos)
-
-# 타일 변경
-	change_to_tilled_soil(player_tile_pos)
-
-
+# 정수로 변환하여 범위 계산
+	var size_x = int(field_size.x)
+	var size_y = int(field_size.y)
+	
+	# 현재 필드 영역 내의 타일만 변경
+	for x in range(field_pos.x, field_pos.x + field_size.x):
+		for y in range(field_pos.y, field_pos.y + field_size.y):
+			var tile_pos = Vector2i(x, y)
+			var current_source_id = background_tilemap.get_cell_source_id(tile_pos)
+			if current_source_id < 10:
+				background_tilemap.set_cell(tile_pos, 22, Vector2i(0, 0))
+				
+				
 func check_over_ten(numbers: Array) -> bool:
 	return numbers.any(func(n): return n >= 10)
+	
 
 func get_area_coordinates(center_pos: Vector2i, direction) -> bool:
-	var area_positions: Array[Vector2i] = [] 
+	var area_positions: Array[Vector2i] = []
 	var found_positions: Array = []
 	# -2부터 +2까지 순회 (5x5 영역)
-	if direction == 1: # 위 
-		for x in range(-1, 2):  
+	if direction == 1: # 위
+		for x in range(-1, 2):
 			for y in range(-2, 0):
 				var pos = Vector2i(center_pos.x + x, center_pos.y + y)
 				area_positions.append(pos)
 	elif direction == 2: # 오른쪽
-		for x in range(1, 3):  
+		for x in range(1, 3):
 			for y in range(-1, 2):
 				var pos = Vector2i(center_pos.x + x, center_pos.y + y)
 				area_positions.append(pos)
 	elif direction == 3: # 아래
-		for x in range(-1, 2):  
+		for x in range(-1, 2):
 			for y in range(1, 3):
 				var pos = Vector2i(center_pos.x + x, center_pos.y + y)
 				area_positions.append(pos)
 	elif direction == 4: #왼쪽
-		for x in range(-2, 0):  
+		for x in range(-2, 0):
 			for y in range(-1, 2):
 				var pos = Vector2i(center_pos.x + x, center_pos.y + y)
 				area_positions.append(pos)
@@ -192,9 +204,9 @@ func change_tilled(tile_pos: Vector2i, num):
 		Vector2i(1, 0),  # 오른쪽 위
 		Vector2i(0, 1),  # 왼쪽 아래
 		Vector2i(1, 1),
-		Vector2i(2, 0),  
-		Vector2i(0, 2),  
-		Vector2i(2, 1),  
+		Vector2i(2, 0),
+		Vector2i(0, 2),
+		Vector2i(2, 1),
 		Vector2i(1, 2),
 		Vector2i(2, 2)
 	]
@@ -248,34 +260,54 @@ func change_to_tilled_soil(tile_pos: Vector2i):
 		elif !near_tile_1 and near_tile_2 and !near_tile_3 and !near_tile_4:
 			change_tilled(hoe_tile, 25)
 			
+
 var planted_crops = {}  # Dictionary to track planted lettuce scenes
-var lettuce_scene = preload("res://scene/lettuce_scene.tscn") 
+var lettuce_scene = preload("res://scene/lettuce_scene.tscn")
 
 func plant_lettuce():
-	var tile_pos = background_tilemap.local_to_map(global_position)
-	var current_atlas_coords = background_tilemap.get_cell_atlas_coords(tile_pos)
-	var target_pos = Vector2i(tile_pos.x + 4, tile_pos.y + 4)
+	if not background_tilemap or not current_field:
+		return
+		
+	# FeetArea의 중심점 구하기
+	var feet_area = $feat_area/feat_co
+	if not feet_area:
+		return
+		
+	# FeetArea의 전역 위치 (중심점) 구하기
+	var plant_center = feet_area.global_position
 	
-	if current_atlas_coords == Vector2i(1, 1):
-		# 해당 위치에 이미 심어진 상추가 있는지 확인
-		if planted_crops.has(target_pos):
-			var existing_lettuce = planted_crops[target_pos]["instance"]
-			# 상추가 존재하고 아직 유효한지 확인
-			if is_instance_valid(existing_lettuce):
-				print("이미 이 위치에 상추가 심어져 있습니다!")
-				return  # 이미 상추가 있으면 함수 종료
+	# 전역 위치를 타일맵 좌표로 변환
+	var tile_pos = background_tilemap.local_to_map(plant_center)
+	
+	# 해당 위치의 타일이 경작된 상태인지 확인
+	var current_source_id = background_tilemap.get_cell_source_id(tile_pos)
+	if current_source_id < 10:  # 경작되지 않은 타일
+		print("이 위치는 경작되지 않았습니다!")
+		return
 		
-		# 상추가 없으면 새로 심기
-		var lettuce = lettuce_scene.instantiate()
-		get_node("/root/Main").add_child(lettuce)
-		
-		var world_pos = background_tilemap.map_to_local(target_pos)
-		lettuce.global_position = world_pos
-		
-		planted_crops[target_pos] = {
-			"instance": lettuce,
-			"plant_time": Time.get_unix_time_from_system()
-		}
+	# 해당 위치에 이미 심어진 상추가 있는지 확인
+	if planted_crops.has(tile_pos):
+		var existing_lettuce = planted_crops[tile_pos]["instance"]
+		if is_instance_valid(existing_lettuce):
+			print("이미 이 위치에 상추가 심어져 있습니다!")
+			return
+	
+	# 상추 심기
+	var lettuce = lettuce_scene.instantiate()
+	get_node("/root/Main").add_child(lettuce)
+	
+	# 타일맵 좌표를 월드 좌표로 변환하여 상추 위치 설정
+	var world_pos = background_tilemap.map_to_local(tile_pos)
+	# 타일 중앙에 위치하도록 타일 크기의 절반을 더함
+	world_pos += Vector2(background_tilemap.tile_set.tile_size) / 2
+	lettuce.global_position = world_pos
+	
+	# 심은 상추 정보 저장
+	planted_crops[tile_pos] = {
+		"instance": lettuce,
+		"plant_time": Time.get_unix_time_from_system()
+	}
+	print("상추를 심었습니다! 위치: ", tile_pos)
 		
 # 캐릭터 이동 
 @export var speed = 400
@@ -288,10 +320,10 @@ func _process(delta):
 	var direction = Vector2.ZERO
 	if Input.is_action_pressed("ui_right"):
 		direction.x += 1
-		$AnimatedSprite2D.flip_h = false
+		$AnimatedSprite2D.flip_h = true
 	if Input.is_action_pressed("ui_left"):
 		direction.x -= 1
-		$AnimatedSprite2D.flip_h = true
+		$AnimatedSprite2D.flip_h = false
 	if Input.is_action_pressed("ui_down"):
 		direction.y += 1
 	if Input.is_action_pressed("ui_up"):
@@ -309,7 +341,7 @@ func _process(delta):
 			
 func _on_animated_sprite_2d_animation_finished():
 	if $AnimatedSprite2D.animation in ["water", "seed", "harvest", "soil"]:
-			$AnimatedSprite2D.animation = "default"
+		$AnimatedSprite2D.animation = "default"
 
 func set_screensize(size: Vector2):
 	screensize = size

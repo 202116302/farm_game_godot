@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://b2kn57hccxfcd"]
 
 [ext_resource type="Script" path="res://script/barn_menu.gd" id="1_4nk5d"]
-[ext_resource type="Texture2D" uid="uid://bliv8j52elw87" path="res://asset/object/barn_menu.png" id="2_eldcb"]
-[ext_resource type="FontFile" uid="uid://bamhjoqbomjc2" path="res://asset/font/font2.ttf" id="3_13i36"]
-[ext_resource type="Texture2D" uid="uid://d2ska6e3ju8ic" path="res://asset/object/menu_object2.png" id="4_c10j7"]
-[ext_resource type="Texture2D" uid="uid://c2i4exvkpa4ix" path="res://asset/lettuces/lettuce4.png" id="5_86ixr"]
+[ext_resource type="Texture2D" uid="uid://bneq2iesevs5v" path="res://asset/object/barn_menu.png" id="2_eldcb"]
+[ext_resource type="FontFile" uid="uid://bp3qhqkvcxah4" path="res://asset/font/font2.ttf" id="3_13i36"]
+[ext_resource type="Texture2D" uid="uid://cdppvktakwai2" path="res://asset/object/menu_object2.png" id="4_c10j7"]
+[ext_resource type="Texture2D" uid="uid://dmwjl2h7gebly" path="res://asset/lettuces/lettuce4.png" id="5_86ixr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kr41p"]
 font = ExtResource("3_13i36")

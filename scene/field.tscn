@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bqpi17qy8haio"]
+[gd_scene load_steps=5 format=3 uid="uid://bqpi17qy8haio"]
 
 [ext_resource type="Texture2D" uid="uid://blpvimoqob56v" path="res://asset/object/sign.png" id="1_7higq"]
 [ext_resource type="FontFile" uid="uid://bp3qhqkvcxah4" path="res://asset/font/font2.ttf" id="2_0ky0w"]
@@ -6,6 +6,9 @@
 [sub_resource type="LabelSettings" id="LabelSettings_ofuqi"]
 font = ExtResource("2_0ky0w")
 font_size = 18
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a2pu0"]
+size = Vector2(400, 48)
 
 [node name="field" type="Node2D"]
 
@@ -26,7 +29,25 @@ label_settings = SubResource("LabelSettings_ofuqi")
 offset_left = -429.0
 offset_top = -117.0
 offset_right = -2.0
-offset_bottom = 57.0
+offset_bottom = 109.0
 border_color = Color(0.221494, 0.152638, 0.0449316, 1)
 border_width = 5.0
 editor_only = false
+
+[node name="fieldarea" type="Area2D" parent="." groups=["farm_field"]]
+
+[node name="field1" type="CollisionShape2D" parent="fieldarea" groups=["farm_field"]]
+position = Vector2(-216, 72)
+shape = SubResource("RectangleShape2D_a2pu0")
+
+[node name="fieldarea2" type="Area2D" parent="." groups=["farm_field"]]
+
+[node name="field2" type="CollisionShape2D" parent="fieldarea2" groups=["farm_field"]]
+position = Vector2(-216, 0)
+shape = SubResource("RectangleShape2D_a2pu0")
+
+[node name="fieldarea3" type="Area2D" parent="." groups=["farm_field"]]
+
+[node name="field3" type="CollisionShape2D" parent="fieldarea3" groups=["farm_field"]]
+position = Vector2(-216, -72)
+shape = SubResource("RectangleShape2D_a2pu0")
