@@ -309,7 +309,6 @@ offset_bottom = 20.128
 position = Vector2(-1, 0)
 
 [node name="UI" parent="." instance=ExtResource("6_57udu")]
-visible = false
 
 [node name="field" parent="." instance=ExtResource("26_ia1m0")]
 position = Vector2(-47, -14)
