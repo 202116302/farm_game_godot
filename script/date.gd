@@ -1,8 +1,11 @@
 extends Label
+signal day_changed
 
 var current_date: Dictionary
 var timer = 0
 const DAY_DURATION = 10  # 30초
+
+
 
 func _ready():
 	# 시작 날짜를 3월 1일로 설정
@@ -41,6 +44,7 @@ func update_date_display():
 	if typeof(current_date) == TYPE_DICTIONARY:
 		if "month" in current_date and "day" in current_date:
 			text = str(current_date["month"]) + "월 " + str(current_date["day"]) + "일"
+			emit_signal("day_changed")
 		else:
 			print("Error: month or day key not found in dictionary")
 			print("Current date content: ", current_date)

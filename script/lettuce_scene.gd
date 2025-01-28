@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var sprite: Sprite2D = $LettuceSprite
-@onready var harvest_area: Area2D = $HarvestArea 
+@onready var harvest_area: Area2D = $HarvestArea
 
 var current_stage: int = 0
 var is_growing: bool = true
@@ -10,6 +10,9 @@ var player_in_range: bool = false  # 플레이어 감지
 var planting_date  # 상추를 심은 날짜
 var planting_month: int  # 심은 월
 var planting_day: int    # 심은 일
+var last_watered_date = null  # 마지막으로 물 준 날짜
+var withered_texture = preload("res://asset/lettuces/rot.png")  # 시든 상추 이미지
+var is_withered = false
 
 # 각 월의 일수를 저장
 var days_in_month = {
@@ -31,7 +34,7 @@ func _ready():
 	]
 	# 초기 이미지 설정
 	sprite.texture = growth_stages[0]
-	z_index = 0 
+	z_index = 0
 	
 	# 심은 날짜 저장
 	var date_node = get_parent().get_node("/root/Main/UI/blank/Panel/Date")
@@ -63,28 +66,45 @@ func _on_harvest_area_entered(body: CharacterBody2D):
 		print("플레이어가 상추 수확 범위에 들어왔습니다")
  
 func _on_harvest_area_exited(body: CharacterBody2D):
-	print("무언가가 영역에 들어왔습니다:", body.name) 
+	print("무언가가 영역에 들어왔습니다:", body.name)
 	if body.name == "Player":
 		player_in_range = false
 
-func calculate_days_passed(current_month: int, current_day: int) -> int:
+#func calculate_days_passed(current_month: int, current_day: int) -> int:
+	#var total_days = 0
+	#
+	#if current_month == planting_month:
+		## 같은 월이면 단순히 일 차이 계산
+		#total_days = current_day - planting_day
+	#else:
+		## 심은 달의 남은 일수
+		#total_days += days_in_month[planting_month] - planting_day
+		#
+		## 중간 달의 일수를 모두 더함
+		#var month = planting_month + 1
+		#while month < current_month:
+			#total_days += days_in_month[month]
+			#month += 1
+		#
+		## 현재 달의 일수를 더함
+		#total_days += current_day
+	
+	#return total_days
+	
+func calculate_days_passed(from_month: int, from_day: int, to_month: int, to_day: int) -> int:
 	var total_days = 0
 	
-	if current_month == planting_month:
-		# 같은 월이면 단순히 일 차이 계산
-		total_days = current_day - planting_day
+	if from_month == to_month:
+		total_days = to_day - from_day
 	else:
-		# 심은 달의 남은 일수
-		total_days += days_in_month[planting_month] - planting_day
+		total_days += days_in_month[from_month] - from_day
 		
-		# 중간 달의 일수를 모두 더함
-		var month = planting_month + 1
-		while month < current_month:
+		var month = from_month + 1
+		while month < to_month:
 			total_days += days_in_month[month]
 			month += 1
 		
-		# 현재 달의 일수를 더함
-		total_days += current_day
+		total_days += to_day
 	
 	return total_days
 	
@@ -95,7 +115,18 @@ func _process(delta):
 			var current_month = date_node.get_month()
 			var current_day = date_node.get_day()
 			
-			var days_passed = calculate_days_passed(current_month, current_day)
+			var growth_days = calculate_days_passed(planting_month, planting_day, current_month, current_day)
+			
+			# 물 주기 체크
+			if last_watered_date:
+				var days_without_water = calculate_days_passed(current_month, current_day,
+					last_watered_date["month"], last_watered_date["day"])
+				if days_without_water >= 3:
+					wither()
+				
+				print("마지막 물 준 날짜: ", last_watered_date["month"], "월 ", last_watered_date["day"], "일")
+				print("현재 날짜: ", current_month, "월 ", current_day, "일")
+				print("물 없이 지난 일수: ", days_without_water)
 			
 			# 디버깅
 			#print("현재 날짜: ", current_month, "월 ", current_day, "일")
@@ -103,7 +134,7 @@ func _process(delta):
 			#print("지난 일수: ", days_passed, "일")
 			
 			# 7일마다 성장
-			var should_be_stage = int(days_passed / 1)
+			var should_be_stage = int(growth_days / 1)
 			
 			# 성장 단계 업데이트
 			if should_be_stage > current_stage and should_be_stage < growth_stages.size():
@@ -152,3 +183,19 @@ func reset_growth():
 # 현재 성장 단계 반환 (0부터 3까지)
 func get_current_stage() -> int:
 	return current_stage
+	
+func wither():
+	is_withered = true
+	is_growing = false
+	is_harvestable = false
+	sprite.texture = withered_texture
+	print("상추가 시들었습니다!")
+
+# 물 주기 함수
+func water():
+	var date_node = get_parent().get_node("/root/Main/UI/blank/Panel/Date")
+	if date_node:
+		last_watered_date = {
+			"month": date_node.get_month(),
+			"day": date_node.get_day()
+		}

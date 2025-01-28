@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=4 uid="uid://cmhwb31j5b6g0"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_rcftn"]
-[ext_resource type="Texture2D" uid="uid://cn5oghlhrkcb3" path="res://asset/sample2.jpg" id="2_vwk06"]
-[ext_resource type="Texture2D" uid="uid://dvjctwpbwp01h" path="res://asset/sample.jpg" id="3_4fjtn"]
-[ext_resource type="PackedScene" path="res://player.tscn" id="3_d5ums"]
+[ext_resource type="Script" path="res://script/main.gd" id="1_rcftn"]
+[ext_resource type="Texture2D" uid="uid://dkm06po7jb6sx" path="res://asset/tile/sample2.jpg" id="2_vwk06"]
+[ext_resource type="Texture2D" uid="uid://bsf2cddtuffrh" path="res://asset/tile/sample.jpg" id="3_4fjtn"]
+[ext_resource type="PackedScene" uid="uid://du6cabiwklx2u" path="res://player.tscn" id="3_d5ums"]
 [ext_resource type="PackedScene" uid="uid://pm8pco3mrnq4" path="res://lettuce_scene.tscn" id="5_10ljp"]
-[ext_resource type="PackedScene" path="res://UI.tscn" id="6_57udu"]
+[ext_resource type="PackedScene" uid="uid://c5m1ahjh2clkr" path="res://UI.tscn" id="6_57udu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aylqf"]
 texture = ExtResource("2_vwk06")

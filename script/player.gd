@@ -32,6 +32,20 @@ func _ready():
 	if feet_area:
 		feet_area.area_entered.connect(_on_feet_area_entered)
 		feet_area.area_exited.connect(_on_feet_area_exited)
+		
+	var date_label = get_node("/root/Main/UI/blank/Panel/Date")
+	if date_label:
+		date_label.day_changed.connect(_on_day_changed)
+		
+func _on_day_changed():
+	if not background_tilemap:
+		return
+		
+	var used_cells = background_tilemap.get_used_cells()
+	for cell in used_cells:
+		var current_source_id = background_tilemap.get_cell_source_id(cell)
+		if current_source_id == 22:  # 물 준 타일
+			background_tilemap.set_cell(cell, 5, Vector2i(0, 0))  # 경작된 상태로 변경 CopyRetryClaude can make mistakes. Please double-check responses.
 
 func _input(event):
 # 마우스 클릭 또는 지정된 키를 눌렀을 때 괭이질 실행
@@ -43,6 +57,7 @@ func _input(event):
 	if Input.is_action_pressed("E"):  # E키는 기본적으로 ui_accept에 매핑되어 있습니다
 		$AnimatedSprite2D.play()
 		$AnimatedSprite2D.animation = "water"
+		water_ground()
 		
 	if Input.is_action_pressed("seed_action"):
 		$AnimatedSprite2D.play()
@@ -60,7 +75,45 @@ func _input(event):
 			#harvested_lettuce_count += 1
 			#update_harvest_count()
 		harvest_nearby_lettuce()
+		
+var watered_dates = {} 
 
+func water_ground():
+	if not background_tilemap or not current_field:
+		return
+			
+	var field_collision = current_field.get_node(current_collision_path)
+	var center_pos = field_collision.position
+	var field_shape = field_collision.shape as RectangleShape2D
+	
+	var tile_size = Vector2(background_tilemap.tile_set.tile_size)
+	var field_pos = background_tilemap.local_to_map(current_field.global_position + center_pos - field_shape.size/2)
+	var field_size = field_shape.size / tile_size
+
+	var size_x = int(field_size.x)
+	var size_y = int(field_size.y)
+	
+	for x in range(field_pos.x, field_pos.x + field_size.x):
+		for y in range(field_pos.y, field_pos.y + field_size.y):
+			var tile_pos = Vector2i(x, y)
+			var current_source_id = background_tilemap.get_cell_source_id(tile_pos)
+			if current_source_id == 5:  # 경작된 타일인 경우
+				background_tilemap.set_cell(tile_pos, 22, Vector2i(0, 0))
+				# 현재 날짜 저장
+				var date_node = get_node("/root/Main/UI/blank/Panel/Date")
+				if date_node:
+					var current_day = date_node.get_day()
+					var current_month = date_node.get_month()
+					watered_dates[str(current_month) + "_" + str(current_day)] = true
+					print(watered_dates)
+					
+				# 해당 타일에 있는 상추에 물 주기
+				for lettuce in planted_crops.values():
+					if lettuce["instance"] and is_instance_valid(lettuce["instance"]):
+						var lettuce_pos = background_tilemap.local_to_map(lettuce["instance"].global_position)
+						if lettuce_pos == tile_pos:
+							lettuce["instance"].water()
+					
 func harvest_nearby_lettuce():
 	var center_tile = background_tilemap.local_to_map(global_position)
 
@@ -145,7 +198,7 @@ func hoe_ground():
 			var tile_pos = Vector2i(x, y)
 			var current_source_id = background_tilemap.get_cell_source_id(tile_pos)
 			if current_source_id < 10:
-				background_tilemap.set_cell(tile_pos, 22, Vector2i(0, 0))
+				background_tilemap.set_cell(tile_pos, 5, Vector2i(0, 0))
 				
 				
 func check_over_ten(numbers: Array) -> bool:

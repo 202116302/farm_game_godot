@@ -11,13 +11,44 @@ func _ready():
 	$menu_window/Button.pressed.connect(func(): hide())
 	hide()
 	
+	var date_label = get_node("/root/Main/UI/blank/Panel/Date")
+	if date_label:
+		print("Date 노드 찾음")
+		date_label.day_changed.connect(_on_day_changed)
+	else:
+		print("Date 노드를 찾을 수 없음")
+		
 	z_index = 2
 
+
+func _on_day_changed():
+	var date_node = get_node("/root/Main/UI/blank/Panel/Date")
+	if date_node:
+		var new_month = date_node.current_date["month"]
+		if new_month != current_month:
+			current_month = new_month
+			update_month_display()
+			var grid = $menu_window/calender
+			for child in grid.get_children():
+				child.queue_free()
+			create_calendar()
+			
+			
 # visible 속성이 변경될 때마다 호출되는 함수
 func _notification(what):
 	if what == NOTIFICATION_VISIBILITY_CHANGED:
 		if visible:
 			update_lettuce_display()
+			# 날짜 노드 찾기 및 현재 월 업데이트
+			var date_node = get_node("/root/Main/UI/blank/Panel/Date")
+			if date_node:
+				current_month = date_node.current_date["month"]
+				update_month_display()
+				# 캘린더 재생성
+				var grid = $menu_window/calender
+				for child in grid.get_children():
+					child.queue_free()
+				create_calendar()
 		
 func update_lettuce_display():
 	var lettuce1 = $menu_window/lettuce1  # TextureRect
@@ -82,10 +113,22 @@ func create_calendar():
 	
 	# 날짜 추가
 	var days_in_month = 31  # 3월은 31일까지
+	if current_month in [4, 6, 9, 11]:
+		days_in_month = 30
+	elif current_month == 2:
+		days_in_month = 28
+		
 	for day in range(1, days_in_month + 1):
 		var button = Button.new()
 		button.text = str(day)
 		button.custom_minimum_size = Vector2(50, 50)  # 버튼 크기
+		#grid.add_child(button)
+		
+		 # 물 준 날짜 체크
+		var player = get_node("/root/Main/Player")
+		if player and player.watered_dates.has(str(current_month) + "_" + str(day)):
+			button.modulate = Color(0.5, 0.8, 1.0)  # 파란색으로 표시
+	
 		grid.add_child(button)
 		
 func _input(event):
