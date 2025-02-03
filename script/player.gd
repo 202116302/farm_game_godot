@@ -113,6 +113,12 @@ func water_ground():
 						var lettuce_pos = background_tilemap.local_to_map(lettuce["instance"].global_position)
 						if lettuce_pos == tile_pos:
 							lettuce["instance"].water()
+							
+				if planted_crops.has(tile_pos):
+					var lettuce = planted_crops[tile_pos]["instance"]
+					if is_instance_valid(lettuce):
+						print("상추를 찾았습니다, water() 호출")
+						lettuce.water()
 					
 func harvest_nearby_lettuce():
 	var center_tile = background_tilemap.local_to_map(global_position)
@@ -271,48 +277,6 @@ func change_tilled(tile_pos: Vector2i, num):
 			var selected_coords = Vector2i(x, y)
 			background_tilemap.set_cell(target_pos, new_source_id, selected_coords)
 	
-func change_to_tilled_soil(tile_pos: Vector2i):
-	var hoe_tile = Vector2i(tile_pos.x + 3, tile_pos.y + 3)
-	var current_source_id = background_tilemap.get_cell_source_id(hoe_tile)
-	var near_tile_1 = get_area_coordinates(hoe_tile, 1)
-	var near_tile_2 = get_area_coordinates(hoe_tile, 2)
-	var near_tile_3 = get_area_coordinates(hoe_tile, 3)
-	var near_tile_4 = get_area_coordinates(hoe_tile, 4)
-	
-	if current_source_id < 10:
-		if near_tile_1 and !near_tile_2 and near_tile_3 and !near_tile_4:
-			change_tilled(hoe_tile, 10)
-		elif near_tile_1 and near_tile_2 and !near_tile_3 and !near_tile_4:
-			change_tilled(hoe_tile, 11)
-		elif near_tile_1 and !near_tile_2 and !near_tile_3 and !near_tile_4:
-			change_tilled(hoe_tile, 12)
-		elif near_tile_1 and !near_tile_2 and !near_tile_3 and near_tile_4:
-			change_tilled(hoe_tile, 13)
-		elif !near_tile_1 and !near_tile_2 and !near_tile_3 and near_tile_4:
-			change_tilled(hoe_tile, 14)
-		elif near_tile_1 and near_tile_2 and !near_tile_3 and near_tile_4:
-			change_tilled(hoe_tile, 15)
-		elif !near_tile_1 and near_tile_2 and !near_tile_3 and near_tile_4:
-			change_tilled(hoe_tile, 16)
-		elif !near_tile_1 and !near_tile_2 and near_tile_3 and !near_tile_4:
-			change_tilled(hoe_tile, 17)
-		elif !near_tile_1 and !near_tile_2 and !near_tile_3 and !near_tile_4:
-			change_tilled(hoe_tile, 18)
-		elif !near_tile_1 and !near_tile_2 and !near_tile_3 and near_tile_4:
-			change_tilled(hoe_tile, 19)
-		elif !near_tile_1 and near_tile_2 and near_tile_3 and near_tile_4:
-			change_tilled(hoe_tile, 20)
-		elif near_tile_1 and near_tile_2 and near_tile_3 and !near_tile_4:
-			change_tilled(hoe_tile, 21)
-		elif near_tile_1 and near_tile_2 and near_tile_3 and near_tile_4:
-			change_tilled(hoe_tile, 22)
-		elif !near_tile_1 and near_tile_2 and near_tile_3 and !near_tile_4:
-			change_tilled(hoe_tile, 23)
-		elif near_tile_1 and !near_tile_2 and near_tile_3 and near_tile_4:
-			change_tilled(hoe_tile, 24)
-		elif !near_tile_1 and near_tile_2 and !near_tile_3 and !near_tile_4:
-			change_tilled(hoe_tile, 25)
-			
 
 var planted_crops = {}  # Dictionary to track planted lettuce scenes
 var lettuce_scene = preload("res://scene/lettuce_scene.tscn")

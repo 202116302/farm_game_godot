@@ -41,6 +41,10 @@ func _ready():
 	if date_node:
 		planting_month = date_node.get_month()
 		planting_day = date_node.get_day()
+		last_watered_date = {
+			"month" : planting_month,
+			"day" : planting_day
+		}
 		print("상추를 심은 날: ", planting_month, "월 ", planting_day, "일")
 	
 	harvest_area.area_entered.connect(_on_harvest_area_entered)
@@ -119,9 +123,10 @@ func _process(delta):
 			
 			# 물 주기 체크
 			if last_watered_date:
-				var days_without_water = calculate_days_passed(current_month, current_day,
-					last_watered_date["month"], last_watered_date["day"])
-				if days_without_water >= 3:
+				var days_without_water = calculate_days_passed(last_watered_date["month"], last_watered_date["day"], 
+				current_month, current_day)
+				if days_without_water >= 2:
+					print("d")
 					wither()
 				
 				print("마지막 물 준 날짜: ", last_watered_date["month"], "월 ", last_watered_date["day"], "일")
@@ -185,11 +190,15 @@ func get_current_stage() -> int:
 	return current_stage
 	
 func wither():
+	print("sprite 상태: ", sprite != null)
+	print("현재 텍스처: ", sprite.texture)
+	print("withered_texture: ", withered_texture)
 	is_withered = true
 	is_growing = false
 	is_harvestable = false
 	sprite.texture = withered_texture
-	print("상추가 시들었습니다!")
+	sprite.queue_redraw()
+	print("변경 후 텍스처: ", sprite.texture)
 
 # 물 주기 함수
 func water():
