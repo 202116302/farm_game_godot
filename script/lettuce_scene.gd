@@ -113,7 +113,7 @@ func calculate_days_passed(from_month: int, from_day: int, to_month: int, to_day
 	return total_days
 	
 func _process(delta):
-	if is_growing and current_stage < growth_stages.size() - 1:
+	if is_growing and !is_withered and current_stage < growth_stages.size() - 1:
 		var date_node = get_parent().get_node("/root/Main/UI/blank/Panel/Date")
 		if date_node:
 			var current_month = date_node.get_month()
