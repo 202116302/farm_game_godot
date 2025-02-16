@@ -119,19 +119,25 @@ func _process(delta):
 			var current_month = date_node.get_month()
 			var current_day = date_node.get_day()
 			
-			var growth_days = calculate_days_passed(planting_month, planting_day, current_month, current_day)
-			
-			# 물 주기 체크
+			 # 먼저 물 주기 체크
 			if last_watered_date:
 				var days_without_water = calculate_days_passed(last_watered_date["month"], last_watered_date["day"], 
 				current_month, current_day)
-				if days_without_water >= 2:
-					print("d")
-					wither()
-				
-				print("마지막 물 준 날짜: ", last_watered_date["month"], "월 ", last_watered_date["day"], "일")
-				print("현재 날짜: ", current_month, "월 ", current_day, "일")
 				print("물 없이 지난 일수: ", days_without_water)
+				if days_without_water > 2:
+					wither()
+					return  # wither 후 함수 종료
+		
+		# 시들지 않았을 때만 성장 로직 실행
+			if !is_withered:
+				var growth_days = calculate_days_passed(planting_month, planting_day, current_month, current_day)
+				var should_be_stage = int(growth_days / 1)
+			
+				if should_be_stage > current_stage and should_be_stage < growth_stages.size():
+					advance_to_next_stage()
+				#print("마지막 물 준 날짜: ", last_watered_date["month"], "월 ", last_watered_date["day"], "일")
+				#print("현재 날짜: ", current_month, "월 ", current_day, "일")
+				#print("물 없이 지난 일수: ", days_without_water)
 			
 			# 디버깅
 			#print("현재 날짜: ", current_month, "월 ", current_day, "일")
@@ -139,12 +145,12 @@ func _process(delta):
 			#print("지난 일수: ", days_passed, "일")
 			
 			# 7일마다 성장
-			var should_be_stage = int(growth_days / 1)
-			
-			# 성장 단계 업데이트
-			if should_be_stage > current_stage and should_be_stage < growth_stages.size():
-				print("성장 단계 업데이트: ", current_stage, " -> ", should_be_stage)
-				advance_to_next_stage()
+			#var should_be_stage = int(growth_days / 1)
+			#
+			## 성장 단계 업데이트
+			#if should_be_stage > current_stage and should_be_stage < growth_stages.size():
+				#print("성장 단계 업데이트: ", current_stage, " -> ", should_be_stage)
+				#advance_to_next_stage()
 
 func advance_to_next_stage():
 	current_stage += 1
