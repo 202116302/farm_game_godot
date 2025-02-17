@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqp6bexf0w4gi"]
+[gd_scene load_steps=9 format=3 uid="uid://bqp6bexf0w4gi"]
 
 [ext_resource type="FontFile" uid="uid://bp3qhqkvcxah4" path="res://asset/font/font2.ttf" id="1_1nuwk"]
 [ext_resource type="Texture2D" uid="uid://hlxyv87foqqd" path="res://asset/object/UI1.png" id="1_dwysc"]
@@ -18,6 +18,9 @@ font_color = Color(0.709804, 0.482353, 0.0823529, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_yi6gc"]
 font = ExtResource("1_1nuwk")
 font_color = Color(0.709804, 0.482353, 0.0823529, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_db0rd"]
+font_color = Color(0.721569, 0.501961, 0.0980392, 1)
 
 [node name="UI" type="CanvasLayer"]
 
@@ -51,3 +54,12 @@ offset_right = 120.0
 offset_bottom = 63.0
 label_settings = SubResource("LabelSettings_yi6gc")
 visible_characters_behavior = 3
+
+[node name="Weather" type="Label" parent="blank/Panel"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 60.0
+offset_right = 102.0
+offset_bottom = 83.0
+text = "날씨 : 맑음 "
+label_settings = SubResource("LabelSettings_db0rd")
