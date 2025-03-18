@@ -28,7 +28,7 @@ func _ready():
 		
 	add_to_group("player")
 
-	var feet_area = $feat_area/feat_area # 플레이어의 자식 노드로 추가된 Area2D
+	var feet_area = $feat_area # 플레이어의 자식 노드로 추가된 Area2D
 	if feet_area:
 		feet_area.area_entered.connect(_on_feet_area_entered)
 		feet_area.area_exited.connect(_on_feet_area_exited)
