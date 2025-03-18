@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://fkpmt67dsfj5"]
+
+[ext_resource type="Texture2D" uid="uid://0sxv7iypqend" path="res://asset/object/weather/rain0.png" id="1_3ydut"]
+[ext_resource type="Script" path="res://script/rain.gd" id="1_72ijb"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_88kcj"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 100, 0)
+emission_shape = 3
+emission_box_extents = Vector3(640, -320, 1)
+inherit_velocity_ratio = 250.0
+direction = Vector3(0, 1, 0)
+spread = 1.0
+initial_velocity_min = 200.0
+initial_velocity_max = 300.0
+gravity = Vector3(0, 100, 0)
+scale_min = 2.0
+scale_max = 2.0
+color = Color(0.442881, 0.696864, 0.983874, 1)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_flxx7"]
+diffuse_texture = ExtResource("1_3ydut")
+
+[node name="Rain" type="Node2D"]
+script = ExtResource("1_72ijb")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(0, -400)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_88kcj")
+texture = SubResource("CanvasTexture_flxx7")
+lifetime = 2.0
+fixed_fps = 60
