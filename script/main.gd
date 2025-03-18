@@ -44,7 +44,7 @@ func _on_weather_change():
 		if date_node:
 			var current_day = date_node.get_day()
 			var current_month = date_node.get_month()
-			
+			0
 			player.watered_dates[str(current_month) + "_" + str(current_day)] = true
 			print(player.watered_dates)
 		
