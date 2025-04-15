@@ -7,6 +7,7 @@ var current_stage: int = 0
 var is_growing: bool = true
 var is_harvestable: bool = false  # 수확 가능 상태 추가
 var player_in_range: bool = false  # 플레이어 감지
+var animal_in_range: bool = false  # 동물 감지
 var planting_date  # 상추를 심은 날짜
 var planting_month: int  # 심은 월
 var planting_day: int    # 심은 일
@@ -30,7 +31,8 @@ func _ready():
 		preload("res://asset/lettuces/lettuce0.png"),
 		preload("res://asset/lettuces/lettuce1.png"),
 		preload("res://asset/lettuces/lettuce2-1.png"),
-		preload("res://asset/lettuces/lettuce3-1.png")
+		preload("res://asset/lettuces/lettuce3-1.png"),
+		preload("res://asset/lettuces/lettuce4.png")
 	]
 	# 초기 이미지 설정
 	sprite.texture = growth_stages[0]
@@ -52,6 +54,8 @@ func _ready():
 	
 	#print("상추 생성됨 - 위치:", global_position, "z-index:", z_index)
 	
+	add_to_group("lettuce")
+	
 	if harvest_area:
 		print("HarvestArea 노드 찾음")
 		harvest_area.monitoring = true
@@ -68,11 +72,24 @@ func _on_harvest_area_entered(body: CharacterBody2D):
 	if body.name == "Player":
 		player_in_range = true
 		print("플레이어가 상추 수확 범위에 들어왔습니다")
- 
+	
+	# 동물이 들어왔을 때 상추를 시들게 함
+	elif "animal" in body.name:  # "Animal"이 이름에 포함된 모든 노드
+		print("동물이 상추 영역에 들어왔습니다:", body.name)
+		animal_in_range = true
+		
+		# 이미 시들지 않았고 수확 가능한 상태인 경우에만 시들게 함
+		if !is_withered and current_stage > 0:
+			print("동물이 상추를 먹습니다!")
+			wither()  # 상추를 시들게 함
 func _on_harvest_area_exited(body: CharacterBody2D):
-	print("무언가가 영역에 들어왔습니다:", body.name)
+	print("무언가가 영역에서 나갔습니다:", body.name)
 	if body.name == "Player":
 		player_in_range = false
+	
+	elif "animal" in body.name:
+		print("동물이 상추 영역에서 나갔습니다:", body.name)
+		animal_in_range = false
 
 #func calculate_days_passed(current_month: int, current_day: int) -> int:
 	#var total_days = 0
@@ -151,6 +168,8 @@ func _process(delta):
 			#if should_be_stage > current_stage and should_be_stage < growth_stages.size():
 				#print("성장 단계 업데이트: ", current_stage, " -> ", should_be_stage)
 				#advance_to_next_stage()
+				
+				
 
 func advance_to_next_stage():
 	current_stage += 1
@@ -196,6 +215,8 @@ func get_current_stage() -> int:
 	return current_stage
 	
 func wither():
+	if is_withered:
+		return
 	print("sprite 상태: ", sprite != null)
 	print("현재 텍스처: ", sprite.texture)
 	print("withered_texture: ", withered_texture)

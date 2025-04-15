@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://cdhllvrs4njay"]
+
+[ext_resource type="Script" path="res://script/animal.gd" id="1_6tygj"]
+[ext_resource type="Texture2D" uid="uid://i1muqgdmetni" path="res://asset/object/animal/F0.png" id="2_4jvpr"]
+[ext_resource type="Texture2D" uid="uid://cyewae8gm2v7n" path="res://asset/object/animal/F1.png" id="3_cats2"]
+[ext_resource type="Texture2D" uid="uid://ucm3dn8iwpoe" path="res://asset/object/animal/F2.png" id="4_ow7fr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_73y05"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4jvpr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_cats2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ow7fr")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2fhb2"]
+radius = 55.0364
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_76dvj"]
+radius = 27.0185
+
+[node name="animal" type="CharacterBody2D"]
+script = ExtResource("1_6tygj")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+scale = Vector2(2.26042, 2.26042)
+sprite_frames = SubResource("SpriteFrames_73y05")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -2)
+shape = SubResource("CircleShape2D_2fhb2")
+
+[node name="LettuceDetec" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LettuceDetec"]
+position = Vector2(2, 20)
+shape = SubResource("CircleShape2D_76dvj")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -10,8 +10,27 @@ var playing = false
 
 @onready var rain_scene = preload("res://scene/Rain.tscn")
 @onready var background_tilemap = get_node("Background")
+
+@onready var animal_scene = preload("res://scene/Animal.tscn")
+
 var rain_instance
 
+
+# 동물 스폰 함수
+func spawn_animal(pos = null):
+	var animal = animal_scene.instantiate()
+	
+	# 위치를 지정하지 않았다면 랜덤 위치 설정
+	if pos == null:
+		var rand_x = randf_range(100, screensize.x - 100)
+		var rand_y = randf_range(100, screensize.y - 100)
+		animal.position = Vector2(rand_x, rand_y)
+	else:
+		animal.position = pos
+	
+	add_child(animal)
+	return animal
+	
 
 func _ready():
 	#screensize = get_viewport().get_visible_rect().size
@@ -27,6 +46,9 @@ func _ready():
 	
 	if $UI/blank/Panel/Date.has_signal("day_changed"):
 		$UI/blank/Panel/Date.day_changed.connect(_on_weather_change)
+		
+	for i in range(3):
+		spawn_animal()
 	
  
 func _on_weather_change():
@@ -47,6 +69,15 @@ func _on_weather_change():
 			0
 			player.watered_dates[str(current_month) + "_" + str(current_day)] = true
 			print(player.watered_dates)
+			
+			
+		for tile_pos in player.planted_crops.keys():
+			var lettuce = player.planted_crops[tile_pos]["instance"]
+			if is_instance_valid(lettuce):
+				lettuce.water()
+				print("비로 인해 상추에 물 줌: ", tile_pos)
+			
+			
 		
 	else:
 		print("Stopping rain")  # 디버깅용
