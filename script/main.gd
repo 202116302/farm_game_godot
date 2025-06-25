@@ -12,6 +12,7 @@ var playing = false
 @onready var background_tilemap = get_node("Background")
 
 @onready var animal_scene = preload("res://scene/Animal.tscn")
+@onready var csv_display_label = null
 
 var rain_instance
 
@@ -49,8 +50,97 @@ func _ready():
 		
 	for i in range(3):
 		spawn_animal()
+		
+	csv_display_label = get_node_or_null("UI/CSVDisplay")
+	if not csv_display_label:
+		create_csv_display_label()
 	
- 
+# CSV 표시용 Label 생성
+func create_csv_display_label():
+	csv_display_label = Label.new()
+	csv_display_label.name = "CSVDisplay"
+	csv_display_label.position = Vector2(10, 10)  # 화면 왼쪽 상단에 위치
+	csv_display_label.size = Vector2(400, 300)
+	csv_display_label.add_theme_color_override("font_color", Color.WHITE)
+	csv_display_label.add_theme_color_override("font_shadow_color", Color.BLACK)
+	csv_display_label.add_theme_constant_override("shadow_offset_x", 1)
+	csv_display_label.add_theme_constant_override("shadow_offset_y", 1)
+	csv_display_label.vertical_alignment = VERTICAL_ALIGNMENT_TOP
+	csv_display_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	
+	# UI에 추가
+	var ui_node = get_node("UI")
+	if ui_node:
+		ui_node.add_child(csv_display_label)
+	else:
+		add_child(csv_display_label)
+
+# CSV 파일 로드 함수
+func load_csv_from_desktop():
+	# 바탕화면 경로 가져오기 (Windows 기준)
+	var desktop_path = OS.get_environment("USERPROFILE") + "/Desktop/"
+	
+	# CSV 파일명 (실제 파일명으로 변경 필요)
+	var csv_filename = "test.csv"  # 여기에 실제 CSV 파일명을 입력하세요
+	var full_path = desktop_path + csv_filename
+	
+	print("CSV 파일 경로: ", full_path)
+	
+	# 파일 존재 확인
+	if not FileAccess.file_exists(full_path):
+		if csv_display_label:
+			csv_display_label.text = "CSV 파일을 찾을 수 없습니다: " + csv_filename
+		print("파일이 존재하지 않습니다: ", full_path)
+		return
+	
+	# 파일 읽기
+	var file = FileAccess.open(full_path, FileAccess.READ)
+	if file == null:
+		if csv_display_label:
+			var error_code = FileAccess.get_open_error()
+			var error_message = "파일 열기 실패 - 오류 코드: " + str(error_code)
+			csv_display_label.text = error_message
+		print("파일 열기 실패: ", FileAccess.get_open_error())
+		return
+	
+	var csv_content = ""
+	var line_count = 0
+	var max_lines = 20  # 표시할 최대 라인 수
+	
+	# CSV 파일을 한 줄씩 읽어서 포맷팅
+	while not file.eof_reached() and line_count < max_lines:
+		var line = file.get_line()
+		if line.strip_edges() != "":  # 빈 줄이 아닌 경우만
+			# CSV를 테이블 형태로 표시하기 위해 탭으로 구분
+			var formatted_line = line.replace(",", "  |  ")
+			csv_content += formatted_line + "\n"
+			line_count += 1
+	
+	file.close()
+	
+	# Label에 표시
+	if csv_display_label:
+		csv_display_label.text = "CSV 파일 내용 (" + csv_filename + "):\n\n" + csv_content
+		if line_count >= max_lines:
+			csv_display_label.text += "\n... (더 많은 데이터가 있습니다)"
+	
+	print("CSV 파일 로드 완료: ", line_count, "줄")
+
+# 키 입력으로 CSV 로드 (기존 _input 함수에 추가)
+func _input(event):
+	# 기존 _input 코드...
+	
+	# C키를 누르면 CSV 로드
+	if event.is_action_pressed("ui_cancel"):  # ESC 키 또는 원하는 키로 변경
+		load_csv_from_desktop()
+
+# CSV 표시/숨기기 토글
+func toggle_csv_display():
+	if csv_display_label:
+		csv_display_label.visible = !csv_display_label.visible
+		
+		
+		 
 func _on_weather_change():
 	var random_value = randf()
 	print("Weather change check - Random value: ", random_value)  # 디버깅용
