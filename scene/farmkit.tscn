@@ -1,3 +1,39 @@
-[gd_scene format=3 uid="uid://vdxrp0uccku6"]
+[gd_scene load_steps=2 format=3 uid="uid://vdxrp0uccku6"]
 
-[node name="Node2D" type="Node2D"]
+[ext_resource type="Script" path="res://script/farmkit.gd" id="1_51d5h"]
+
+[node name="farmkit" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_51d5h")
+
+[node name="ContentArea" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Header" type="HBoxContainer" parent="ContentArea"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ContentArea/Header"]
+layout_mode = 2
+
+[node name="MinimizeButton" type="Button" parent="ContentArea/Header"]
+layout_mode = 2
+
+[node name="MainContent" type="HSplitContainer" parent="ContentArea"]
+layout_mode = 2
+
+[node name="CSVSection" type="Label" parent="ContentArea/MainContent"]
+layout_mode = 2
+
+[node name="CSVDisplay" type="RichTextLabel" parent="ContentArea/MainContent"]
+layout_mode = 2
+
+[node name="Footer" type="HBoxContainer" parent="ContentArea"]
+layout_mode = 2
+
+[node name="RefreshBtn" type="Button" parent="ContentArea/Footer"]
+layout_mode = 2
+
+[node name="FileDialog" type="FileDialog" parent="."]
