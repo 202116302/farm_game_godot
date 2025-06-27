@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5yim718b3cub"]
+
+[ext_resource type="Script" path="res://script/weather_data.gd" id="1_nmbyv"]
+
+[node name="WeatherData" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_nmbyv")
+
+[node name="WeatherDisplay" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RefreshButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]

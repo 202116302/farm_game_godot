@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=4 uid="uid://x2oaqqleiiqt"]
+[gd_scene load_steps=55 format=4 uid="uid://x2oaqqleiiqt"]
 
 [ext_resource type="Script" path="res://script/main.gd" id="1_rcftn"]
 [ext_resource type="Texture2D" uid="uid://c2ah7ia80wx5n" path="res://asset/tile/Grasstile/F0.png" id="2_nxrc2"]
@@ -30,6 +30,7 @@
 [ext_resource type="PackedScene" uid="uid://2roi4uoduehv" path="res://scene/barn.tscn" id="27_0ln6o"]
 [ext_resource type="PackedScene" uid="uid://b2kn57hccxfcd" path="res://scene/barn_menu.tscn" id="28_cstnk"]
 [ext_resource type="PackedScene" uid="uid://vdxrp0uccku6" path="res://scene/farmkit.tscn" id="30_i44i5"]
+[ext_resource type="PackedScene" uid="uid://c5yim718b3cub" path="res://scene/weather_data.tscn" id="31_vn165"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hnpik"]
 texture = ExtResource("2_nxrc2")
@@ -335,3 +336,5 @@ position = Vector2(-48, -177)
 position = Vector2(-1, 7)
 
 [node name="farmkit" parent="." instance=ExtResource("30_i44i5")]
+
+[node name="WeatherData" parent="." instance=ExtResource("31_vn165")]

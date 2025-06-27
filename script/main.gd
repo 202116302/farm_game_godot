@@ -13,8 +13,11 @@ var playing = false
 
 @onready var animal_scene = preload("res://scene/Animal.tscn")
 @onready var farmkit = $farmkit
+@onready var weather_data = $WeatherData
 
 var rain_instance
+#var weather_data_scene = preload("res://scene/weather_data.tscn")
+#var weather_data_instance = null
 
 
 # 동물 스폰 함수
@@ -52,7 +55,7 @@ func _ready():
 		spawn_animal()
 	
 	setup_farmkit()
-		
+	setup_simple_weather()
 		
 		
 		 
@@ -110,7 +113,23 @@ func update_field_tiles(id):
 				
 				
 func setup_farmkit():
-	if farmkit:
+	# farmkit 노드 존재 확인
+	if not farmkit:
+		print("farmkit 노드를 찾을 수 없습니다!")
+		return
+	
+	# farmkit이 올바른 타입인지 확인
+	if not is_instance_valid(farmkit):
+		print("farmkit 노드가 유효하지 않습니다!")
+		return
+	
+	# position_in_circle 메서드 존재 확인
+	if not farmkit.has_method("position_in_circle"):
+		print("farmkit에 position_in_circle 메서드가 없습니다!")
+		# 대안: 직접 위치 설정
+		farmkit.position = Vector2(-500, -850)
+		farmkit.size = Vector2(380, 280)
+	else:
 		# 파란 원 위치에 farmkit 배치
 		farmkit.position_in_circle(-500, -850, 380, 280)
 		
@@ -128,18 +147,7 @@ func _on_farmkit_data_updated(type: String, content):
 	print("farmkit 데이터 업데이트: ", type)
 	# 필요시 메인 게임에서 데이터 활용
 
-# 키보드 입력으로 farmkit 제어
-func _input(event):
-	# 기존 _input 코드...
-	
-	# F키로 farmkit 표시/숨기기
-	if event.is_action_pressed("ui_cancel"):  # ESC 키
-		toggle_farmkit()
-	
-	# R키로 farmkit 새로고침
-	elif Input.is_action_just_pressed("ui_accept"):  # Enter 키
-		if farmkit:
-			farmkit._on_refresh_pressed()
+
 
 func toggle_farmkit():
 	if farmkit:
@@ -160,3 +168,32 @@ func load_farm_data(csv_filename: String = "test.csv", image_filepath: String = 
 func load_data_csv():
 	if farmkit:
 		farmkit.load_specific_csv("test.csv")
+		
+		
+func setup_simple_weather():
+	if weather_data:
+		weather_data.set_position_simple(100, -850, 400, 300)  # 위치만 설정
+		print("weather_data 설정 완료")
+	
+	print("간단한 날씨 위젯 설정 완료")
+
+func toggle_simple_weather():
+	if weather_data:
+		weather_data.visible = !weather_data.visible
+		
+		
+		# 키보드 입력으로 farmkit 제어
+func _input(event):
+	# 기존 _input 코드...
+	
+	# F키로 farmkit 표시/숨기기
+	if event.is_action_pressed("ui_cancel"):  # ESC 키
+		toggle_farmkit()
+	
+	# R키로 farmkit 새로고침
+	elif Input.is_action_just_pressed("ui_accept"):  # Enter 키
+		if farmkit:
+			farmkit._on_refresh_pressed()
+			
+	elif Input.is_action_just_pressed("weather"):  # W키
+		toggle_simple_weather()
