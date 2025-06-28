@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsps6ei8ewg0w"]
+
+[ext_resource type="Script" path="res://script/WeatherStation.gd" id="1_4w8ub"]
+[ext_resource type="Texture2D" uid="uid://4weqgdoxxwj7" path="res://asset/object/weather_center.png" id="2_0tfh7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bkkkk"]
+
+[node name="WeatherStation" type="Area2D"]
+script = ExtResource("1_4w8ub")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(5, 5)
+shape = SubResource("CircleShape2D_bkkkk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_0tfh7")
+
+[node name="InteractionUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="InteractionUI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

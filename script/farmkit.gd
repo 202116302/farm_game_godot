@@ -6,7 +6,7 @@ signal data_updated(type: String, content)
 
 # 노드 참조
 @onready var title_label = $ContentArea/Header/Title
-@onready var minimize_btn = $ContentArea/Header/MinimizeButton
+#@onready var minimize_btn = $ContentArea/Header/MinimizeButton
 @onready var csv_display = $ContentArea/MainContent/CSVDisplay
 @onready var refresh_btn = $ContentArea/Footer/RefreshBtn
 @onready var file_dialog = $FileDialog
@@ -69,9 +69,9 @@ func set_refresh_interval(seconds: float):
 	
 	
 func setup_farmkit_ui():
-	# 제목 설정
-	title_label.text = "스마트팜 키트"
-	title_label.add_theme_color_override("font_color", Color.WHITE)
+	## 제목 설정
+	#title_label.text = "스마트팜 키트"
+	#title_label.add_theme_color_override("font_color", Color.WHITE)
 	
 	
 	# CSV 표시 설정
@@ -82,7 +82,7 @@ func setup_farmkit_ui():
 	
 	# 버튼 텍스트 설정
 	refresh_btn.text = "새로고침"
-	minimize_btn.text = "─"
+	#minimize_btn.text = "─"
 	
 	# 파일 다이얼로그 설정
 	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
@@ -91,7 +91,7 @@ func setup_farmkit_ui():
 func connect_signals():
 	# 버튼 시그널 연결
 	refresh_btn.pressed.connect(_on_refresh_pressed)
-	minimize_btn.pressed.connect(_on_minimize_pressed)
+	#minimize_btn.pressed.connect(_on_minimize_pressed)
 	
 	# 파일 다이얼로그 시그널
 	file_dialog.file_selected.connect(_on_file_selected)
@@ -154,12 +154,12 @@ func load_csv_data_simple(filename: String):
 		led_text = "켜짐"
 	
 	# 깔끔한 표시
-	var content = "[center][b][color=lightgreen]키트 센서 현황[/color][/b][/center]\n\n"
+	#content = "[center][b][color=lightgreen]키트 센서 현황[/color][/b][/center]\n\n"
 	
-	content += "[color=white]온도: [/color][color=yellow]" + data[1].strip_edges() + "°C[/color]   "
+	var content = "[color=white]온도: [/color][color=yellow]" + data[1].strip_edges() + "°C[/color]   "
 	content += "[color=white]습도: [/color][color=cyan]" + data[2].strip_edges() + "%[/color]   "
-	content += "[color=white]토양수분: [/color][color=lightblue]" + data[3].strip_edges() + "%[/color]   "
-	content += "[color=white]광도: [/color][color=orange]" + data[4].strip_edges() + " lux[/color]\n\n"
+	content += "[color=white]토양수분: [/color][color=lightblue]" + data[3].strip_edges() + "%[/color]\n\n"
+	content += "[color=white]광도: [/color][color=orange]" + data[4].strip_edges() + " lux[/color]    "
 	
 	if led_text == "켜짐":
 		content += "[color=white]LED: [/color][color=green]" + led_text + "[/color]\n\n"
@@ -263,13 +263,13 @@ func toggle_minimize():
 		# 최소화: 제목만 보이게
 		$ContentArea/MainContent.visible = false
 		$ContentArea/Footer.visible = false
-		minimize_btn.text = "□"
+		#minimize_btn.text = "□"
 		size.y = 40
 	else:
 		# 복원: 전체 보이게
 		$ContentArea/MainContent.visible = true
 		$ContentArea/Footer.visible = true
-		minimize_btn.text = "─"
+		#minimize_btn.text = "─"
 		size.y = 300
 	
 	farmkit_minimized.emit()

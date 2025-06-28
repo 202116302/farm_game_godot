@@ -14,6 +14,7 @@ var playing = false
 @onready var animal_scene = preload("res://scene/Animal.tscn")
 @onready var farmkit = $farmkit
 @onready var weather_data = $WeatherData
+@onready var weather_station = $WeatherStation
 
 var rain_instance
 #var weather_data_scene = preload("res://scene/weather_data.tscn")
@@ -55,8 +56,29 @@ func _ready():
 		spawn_animal()
 	
 	setup_farmkit()
-	setup_simple_weather()
-		
+	#setup_simple_weather()
+	setup_weather_system()
+func setup_weather_system():
+	# WeatherData를 팝업 모드로 설정 (초기에는 숨김)
+	if weather_data:
+		weather_data.hide()
+		print("WeatherData 팝업 모드로 설정됨")
+	
+	# WeatherStation 설정
+	setup_weather_station()
+
+func setup_weather_station():
+	# WeatherStation 노드가 존재하는지 확인
+	if not weather_station:
+		print("WeatherStation 노드를 찾을 수 없습니다!")
+		return
+	
+	# 날씨 관측소 위치 설정 (원하는 위치로 조정 가능)
+	weather_station.position = Vector2(200, 200)
+	
+	print("날씨 관측소 설정 완료 - 위치: ", weather_station.position)
+
+
 		
 		 
 #func _on_weather_change():
@@ -170,16 +192,16 @@ func load_data_csv():
 		farmkit.load_specific_csv("test.csv")
 		
 		
-func setup_simple_weather():
-	if weather_data:
-		weather_data.set_position_simple(100, -850, 400, 300)  # 위치만 설정
-		print("weather_data 설정 완료")
-	
-	print("간단한 날씨 위젯 설정 완료")
-
-func toggle_simple_weather():
-	if weather_data:
-		weather_data.visible = !weather_data.visible
+#func setup_simple_weather():
+	#if weather_data:
+		#weather_data.set_position_simple(100, -850, 400, 300)  # 위치만 설정
+		#print("weather_data 설정 완료")
+	#
+	#print("간단한 날씨 위젯 설정 완료")
+#
+#func toggle_simple_weather():
+	#if weather_data:
+		#weather_data.visible = !weather_data.visible
 		
 		
 		# 키보드 입력으로 farmkit 제어
@@ -195,5 +217,3 @@ func _input(event):
 		if farmkit:
 			farmkit._on_refresh_pressed()
 			
-	elif Input.is_action_just_pressed("weather"):  # W키
-		toggle_simple_weather()

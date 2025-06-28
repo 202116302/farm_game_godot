@@ -20,3 +20,18 @@ offset_right = 8.0
 offset_bottom = 8.0
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="RegionSelector" type="OptionButton" parent="."]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 20.0
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
