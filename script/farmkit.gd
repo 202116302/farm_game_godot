@@ -10,11 +10,17 @@ signal data_updated(type: String, content)
 @onready var csv_display = $ContentArea/MainContent/CSVDisplay
 @onready var refresh_btn = $ContentArea/Footer/RefreshBtn
 @onready var file_dialog = $FileDialog
+@onready var auto_refresh_checkbox = null
 
 # 변수
 var desktop_path = ""
 var is_minimized = false
 var current_csv_file = ""
+
+# 자동 새로고침 관련 변수
+var auto_refresh_enabled = true
+var refresh_interval = 10.0  # 10초
+var refresh_timer = 0.0
 
 func _ready():
 	# 바탕화면 경로 설정
@@ -28,7 +34,40 @@ func _ready():
 	
 	# 초기 데이터 로드
 	auto_load_data()
+	
+func _process(delta):
+	# 자동 새로고침 처리
+	if auto_refresh_enabled:
+		refresh_timer += delta
+		if refresh_timer >= refresh_interval:
+			refresh_timer = 0.0
+			auto_refresh_data()
 
+func auto_refresh_data():
+	print("자동 새로고침 - 센서 데이터 업데이트 중...")
+	
+	# data.csv 파일 다시 로드
+	load_csv_data("test.csv")
+	
+	# 새로고침 로그 표시
+	var current_time = Time.get_time_string_from_system()
+	print("자동 새로고침 완료: ", current_time)
+
+# 자동 새로고침 토글 함수
+func toggle_auto_refresh():
+	auto_refresh_enabled = !auto_refresh_enabled
+	refresh_timer = 0.0  # 타이머 리셋
+	
+	var status = "활성화" if auto_refresh_enabled else "비활성화"
+	print("자동 새로고침 ", status)
+
+# 새로고침 간격 설정 함수
+func set_refresh_interval(seconds: float):
+	refresh_interval = seconds
+	refresh_timer = 0.0  # 타이머 리셋
+	print("새로고침 간격: ", seconds, "초로 설정")
+	
+	
 func setup_farmkit_ui():
 	# 제목 설정
 	title_label.text = "스마트팜 키트"
