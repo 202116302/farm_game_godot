@@ -14,6 +14,8 @@ var screensize = Vector2.ZERO
 
 var harvested_lettuce_count = 0  # 수확한 상추 개수
 @onready var count_label = get_node("/root/Main/UI/blank/Panel/lettuce")  # Label 노드 참조
+@onready var camera = $Camera2D
+
 
 func _ready():
 # 타일맵 참조 확인
@@ -36,6 +38,32 @@ func _ready():
 	var date_label = get_node("/root/Main/UI/blank/Panel/Date")
 	if date_label:
 		date_label.day_changed.connect(_on_day_changed)
+		
+	setup_player_camera()
+	
+	
+	
+func setup_player_camera():
+	if camera:
+		# 이 카메라를 활성 카메라로 설정
+		camera.make_current()
+		
+		# 부드러운 카메라 이동 설정
+		camera.position_smoothing_enabled = true
+		camera.position_smoothing_speed = 5.0
+		
+		# 기본 줌 설정
+		camera.zoom = Vector2(1.0, 1.0)
+		
+		# 카메라 경계 설정 (농장 맵 크기에 맞게)
+		camera.limit_left = -2000
+		camera.limit_right = 2000
+		camera.limit_top = -1500
+		camera.limit_bottom = 1500
+		
+		print("플레이어 카메라 설정 완료")
+	else:
+		print("Camera2D 노드를 찾을 수 없습니다!")
 		
 func _on_day_changed():
 	if not background_tilemap:
@@ -75,6 +103,16 @@ func _input(event):
 			#harvested_lettuce_count += 1
 			#update_harvest_count()
 		harvest_nearby_lettuce()
+		
+	if camera and event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+	# 줌 인
+			camera.zoom = camera.zoom * 1.1
+			camera.zoom = camera.zoom.clamp(Vector2(0.5, 0.5), Vector2(2.0, 2.0))
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+	# 줌 아웃
+			camera.zoom = camera.zoom * 0.9
+			camera.zoom = camera.zoom.clamp(Vector2(0.5, 0.5), Vector2(2.0, 2.0))
 		
 var watered_dates = {} 
 

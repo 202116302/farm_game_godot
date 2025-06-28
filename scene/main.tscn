@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=4 uid="uid://x2oaqqleiiqt"]
+[gd_scene load_steps=54 format=4 uid="uid://x2oaqqleiiqt"]
 
 [ext_resource type="Script" path="res://script/main.gd" id="1_rcftn"]
 [ext_resource type="Texture2D" uid="uid://c2ah7ia80wx5n" path="res://asset/tile/Grasstile/F0.png" id="2_nxrc2"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://cgqnwesvmvy4s" path="res://asset/tile/Grasstile/F1.png" id="3_x0q2e"]
 [ext_resource type="Texture2D" uid="uid://ds02e6lao1u5b" path="res://asset/tile/Grasstile/F2.png" id="4_0kfha"]
 [ext_resource type="Texture2D" uid="uid://bs5bmgtf25vmt" path="res://asset/tile/Soiltile/64/0.png" id="4_oar3a"]
-[ext_resource type="PackedScene" uid="uid://722dtwbdobha" path="res://scene/lettuce_scene.tscn" id="5_10ljp"]
 [ext_resource type="Texture2D" uid="uid://jbby8vxyot2o" path="res://asset/tile/Grasstile/F3.png" id="5_ay4vi"]
 [ext_resource type="Texture2D" uid="uid://bnpjyg5ikx7ex" path="res://asset/tile/Soiltile/64/1.png" id="5_roxtr"]
 [ext_resource type="PackedScene" uid="uid://bqp6bexf0w4gi" path="res://scene/UI.tscn" id="6_57udu"]
@@ -321,13 +320,7 @@ offset_top = 19.896
 offset_right = -3.52008
 offset_bottom = 20.128
 
-[node name="LettuceScene" parent="." instance=ExtResource("5_10ljp")]
-position = Vector2(-1, 0)
-
 [node name="UI" parent="." instance=ExtResource("6_57udu")]
-
-[node name="field" parent="." instance=ExtResource("26_ia1m0")]
-position = Vector2(-47, -14)
 
 [node name="barn" parent="." instance=ExtResource("27_0ln6o")]
 position = Vector2(-48, -177)
@@ -338,3 +331,6 @@ position = Vector2(-1, 7)
 [node name="farmkit" parent="." instance=ExtResource("30_i44i5")]
 
 [node name="WeatherData" parent="." instance=ExtResource("31_vn165")]
+
+[node name="field" parent="." instance=ExtResource("26_ia1m0")]
+position = Vector2(-47, -14)
