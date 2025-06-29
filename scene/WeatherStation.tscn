@@ -1,18 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://bsps6ei8ewg0w"]
+[gd_scene load_steps=6 format=3 uid="uid://bsps6ei8ewg0w"]
 
 [ext_resource type="Script" path="res://script/WeatherStation.gd" id="1_4w8ub"]
 [ext_resource type="Texture2D" uid="uid://4weqgdoxxwj7" path="res://asset/object/weather_center.png" id="2_0tfh7"]
+[ext_resource type="FontFile" uid="uid://bp3qhqkvcxah4" path="res://asset/font/font2.ttf" id="3_b6v5w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bkkkk"]
+radius = 32.04
+
+[sub_resource type="LabelSettings" id="LabelSettings_hd878"]
+line_spacing = 6.0
+font = ExtResource("3_b6v5w")
+font_size = 27
 
 [node name="WeatherStation" type="Area2D"]
 script = ExtResource("1_4w8ub")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(104, 128)
 scale = Vector2(5, 5)
 shape = SubResource("CircleShape2D_bkkkk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(124, 124)
+scale = Vector2(2.9375, 2.9375)
 texture = ExtResource("2_0tfh7")
 
 [node name="InteractionUI" type="Control" parent="."]
@@ -23,8 +33,11 @@ offset_bottom = 40.0
 
 [node name="Label" type="Label" parent="InteractionUI"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 240.0
+offset_top = 72.0
+offset_right = 320.0
+offset_bottom = 120.0
+label_settings = SubResource("LabelSettings_hd878")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4nd1n7r2gef6"]
+
+[ext_resource type="Script" path="res://script/weather_window.gd" id="1_yunlq"]
+[ext_resource type="Texture2D" uid="uid://bneq2iesevs5v" path="res://asset/object/barn_menu.png" id="2_5laju"]
+
+[node name="WeatherWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -250.0
+offset_right = 300.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yunlq")
+
+[node name="weather_window" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(700, 600)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_5laju")
+
+[node name="container" type="Control" parent="weather_window"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TitleLabel" type="Label" parent="weather_window/container"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="RegionSelector" type="OptionButton" parent="weather_window/container"]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 20.0
+
+[node name="RefreshButton" type="Button" parent="weather_window/container"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="CloseButton" type="Button" parent="weather_window/container"]
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 14.0
+
+[node name="WeatherDisplay" type="RichTextLabel" parent="weather_window/container"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ForecastDisplay" type="RichTextLabel" parent="weather_window/container"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]

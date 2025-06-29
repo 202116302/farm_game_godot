@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bqp6bexf0w4gi"]
 
-[ext_resource type="FontFile" uid="uid://r0ra7ymt38jw" path="res://asset/font/font2.ttf" id="1_1nuwk"]
-[ext_resource type="Texture2D" uid="uid://bf0vbph2l5ayw" path="res://asset/object/UI1.png" id="1_dwysc"]
+[ext_resource type="FontFile" uid="uid://bp3qhqkvcxah4" path="res://asset/font/font2.ttf" id="1_1nuwk"]
+[ext_resource type="Texture2D" uid="uid://hlxyv87foqqd" path="res://asset/object/UI1.png" id="1_dwysc"]
 [ext_resource type="Script" path="res://script/date.gd" id="2_yk1sg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o1n6i"]
@@ -23,6 +23,7 @@ font_color = Color(0.709804, 0.482353, 0.0823529, 1)
 font_color = Color(0.721569, 0.501961, 0.0980392, 1)
 
 [node name="UI" type="CanvasLayer"]
+visible = false
 
 [node name="blank" type="Panel" parent="."]
 custom_minimum_size = Vector2(200, 100)
@@ -37,6 +38,7 @@ offset_bottom = 100.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_xf0h7")
 
 [node name="Date" type="Label" parent="blank/Panel"]
+visible = false
 layout_mode = 1
 offset_left = 20.0
 offset_top = 10.0

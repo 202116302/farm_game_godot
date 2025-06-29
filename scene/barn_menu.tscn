@@ -1,10 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://b2kn57hccxfcd"]
+[gd_scene load_steps=16 format=3 uid="uid://b2kn57hccxfcd"]
 
 [ext_resource type="Script" path="res://script/barn_menu.gd" id="1_4nk5d"]
 [ext_resource type="Texture2D" uid="uid://bneq2iesevs5v" path="res://asset/object/barn_menu.png" id="2_eldcb"]
 [ext_resource type="FontFile" uid="uid://bp3qhqkvcxah4" path="res://asset/font/font2.ttf" id="3_13i36"]
 [ext_resource type="Texture2D" uid="uid://cdppvktakwai2" path="res://asset/object/menu_object2.png" id="4_c10j7"]
 [ext_resource type="Texture2D" uid="uid://dmwjl2h7gebly" path="res://asset/lettuces/lettuce4.png" id="5_86ixr"]
+[ext_resource type="Texture2D" uid="uid://fb344jtrrr1l" path="res://asset/lettuces/lettuce0.png" id="6_5lssa"]
+[ext_resource type="Texture2D" uid="uid://c8rwt1d10wmxy" path="res://asset/lettuces/lettuce1.png" id="7_3a68r"]
+[ext_resource type="Texture2D" uid="uid://23p23moe01pl" path="res://asset/lettuces/lettuce2-1.png" id="8_psb22"]
+[ext_resource type="Texture2D" uid="uid://dspncu04qowmy" path="res://asset/lettuces/lettuce3-1.png" id="9_sqg8h"]
+[ext_resource type="Texture2D" uid="uid://bice77jjficdl" path="res://asset/player/soil/soil2.png" id="10_wjwwh"]
+[ext_resource type="Texture2D" uid="uid://bf0g55dkr1jm8" path="res://asset/player/Harvest/F2.png" id="11_2wpab"]
+[ext_resource type="Texture2D" uid="uid://dntafpcth53cg" path="res://asset/player/seed/seed2.png" id="12_lxjuf"]
+[ext_resource type="Texture2D" uid="uid://fxjhop5lvy64" path="res://asset/player/water/water3.png" id="13_ao7n6"]
+[ext_resource type="LabelSettings" uid="uid://cblnpimsuvkyd" path="res://texttype.tres" id="14_sr6ss"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kr41p"]
 font = ExtResource("3_13i36")
@@ -33,7 +42,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.137255, 0.137255, 0.137255, 0.768627)
+color = Color(0.185981, 0.185981, 0.185981, 0.768627)
 
 [node name="menu_window" type="TextureRect" parent="."]
 layout_mode = 1
@@ -96,17 +105,17 @@ anchor_left = 0.544
 anchor_top = 0.253
 anchor_right = 0.856
 anchor_bottom = 0.485
-offset_left = -9.60004
-offset_top = -3.15001
-offset_right = 19.5999
-offset_bottom = 10.25
+offset_left = -33.6
+offset_top = -3.14999
+offset_right = 19.6
+offset_bottom = 21.25
 texture = ExtResource("4_c10j7")
 
 [node name="inven_count" type="Label" parent="menu_window"]
 layout_mode = 0
-offset_left = 580.0
+offset_left = 600.0
 offset_top = 240.0
-offset_right = 620.0
+offset_right = 640.0
 offset_bottom = 263.0
 
 [node name="inven_text" type="Label" parent="menu_window"]
@@ -116,10 +125,10 @@ anchor_left = 0.618
 anchor_top = 0.305
 anchor_right = 0.622
 anchor_bottom = 0.312
-offset_left = -52.2
-offset_top = 72.25
-offset_right = -7.79999
-offset_bottom = 91.4
+offset_left = -57.2
+offset_top = 73.25
+offset_right = -12.7999
+offset_bottom = 92.4
 
 [node name="lettuce1" type="TextureRect" parent="menu_window"]
 layout_mode = 1
@@ -159,3 +168,158 @@ offset_top = -15.9
 offset_right = 63.7
 offset_bottom = 32.1
 texture = ExtResource("5_86ixr")
+
+[node name="SellButton" type="Button" parent="menu_window"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="SellAllbutton" type="Button" parent="menu_window"]
+visible = false
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="MoneyLabel" type="Label" parent="menu_window"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="MessageLabel" type="Label" parent="menu_window"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Lettuces" type="Control" parent="menu_window"]
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 72.0
+offset_right = 512.0
+offset_bottom = 304.0
+
+[node name="Lettuce0" type="Sprite2D" parent="menu_window/Lettuces"]
+position = Vector2(112, 189)
+texture = ExtResource("6_5lssa")
+
+[node name="Lettuce1" type="Sprite2D" parent="menu_window/Lettuces"]
+position = Vector2(176, 185)
+texture = ExtResource("7_3a68r")
+
+[node name="Lettuce2-1" type="Sprite2D" parent="menu_window/Lettuces"]
+position = Vector2(240, 184)
+texture = ExtResource("8_psb22")
+
+[node name="Lettuce3-1" type="Sprite2D" parent="menu_window/Lettuces"]
+position = Vector2(304, 184)
+texture = ExtResource("9_sqg8h")
+
+[node name="Lettuce4" type="Sprite2D" parent="menu_window/Lettuces"]
+position = Vector2(376, 176)
+scale = Vector2(1.33333, 1.33333)
+texture = ExtResource("5_86ixr")
+
+[node name="Label" type="Label" parent="menu_window/Lettuces"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 72.0
+offset_right = 313.0
+offset_bottom = 95.0
+text = "상추의 성장 단계"
+
+[node name="Label2" type="Label" parent="menu_window/Lettuces"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 112.0
+offset_right = 136.0
+offset_bottom = 135.0
+text = "1단계"
+
+[node name="Label3" type="Label" parent="menu_window/Lettuces"]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 112.0
+offset_right = 200.0
+offset_bottom = 135.0
+text = "2단계"
+
+[node name="Label4" type="Label" parent="menu_window/Lettuces"]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 112.0
+offset_right = 264.0
+offset_bottom = 135.0
+text = "3단계"
+
+[node name="Label5" type="Label" parent="menu_window/Lettuces"]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 112.0
+offset_right = 328.0
+offset_bottom = 135.0
+text = "4단계 "
+
+[node name="Label6" type="Label" parent="menu_window/Lettuces"]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 112.0
+offset_right = 400.0
+offset_bottom = 135.0
+text = "수확!"
+
+[node name="Soil2" type="Sprite2D" parent="menu_window"]
+position = Vector2(120, 336)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("10_wjwwh")
+
+[node name="F2" type="Sprite2D" parent="menu_window"]
+position = Vector2(400, 336)
+scale = Vector2(1.54167, 1.54167)
+texture = ExtResource("11_2wpab")
+
+[node name="Seed2" type="Sprite2D" parent="menu_window"]
+position = Vector2(296, 336)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("12_lxjuf")
+
+[node name="Water3" type="Sprite2D" parent="menu_window"]
+position = Vector2(208, 336)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("13_ao7n6")
+
+[node name="y_key" type="Label" parent="menu_window"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 384.0
+offset_right = 167.0
+offset_bottom = 407.0
+text = "밭갈기-Y키"
+label_settings = ExtResource("14_sr6ss")
+
+[node name="e_key" type="Label" parent="menu_window"]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 384.0
+offset_right = 255.0
+offset_bottom = 407.0
+text = "물주기-E키"
+label_settings = ExtResource("14_sr6ss")
+
+[node name="f_key" type="Label" parent="menu_window"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 384.0
+offset_right = 358.0
+offset_bottom = 407.0
+text = "파종하기-F키
+"
+label_settings = ExtResource("14_sr6ss")
+
+[node name="h_key" type="Label" parent="menu_window"]
+layout_mode = 0
+offset_left = 360.0
+offset_top = 384.0
+offset_right = 465.0
+offset_bottom = 407.0
+text = "수확하기-H키
+"
+label_settings = ExtResource("14_sr6ss")

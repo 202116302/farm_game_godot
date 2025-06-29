@@ -12,7 +12,7 @@ func _ready():
 
 	# 프롬프트 텍스트 설정
 	prompt_label = Label.new()
-	prompt_label.text = "SPACE"
+	prompt_label.text = "스페이스바"
 	prompt_label.add_theme_font_override("font", font)
 	prompt_label.add_theme_font_size_override("font_size", 24)
 	prompt_label.visible = false

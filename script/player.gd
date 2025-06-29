@@ -16,6 +16,7 @@ var harvested_lettuce_count = 0  # 수확한 상추 개수
 @onready var count_label = get_node("/root/Main/UI/blank/Panel/lettuce")  # Label 노드 참조
 @onready var camera = $Camera2D
 
+var money = 0
 
 func _ready():
 # 타일맵 참조 확인

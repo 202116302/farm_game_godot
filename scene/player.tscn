@@ -173,7 +173,7 @@ size = Vector2(74, 126)
 size = Vector2(67, 17.5)
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(479, 193)
+position = Vector2(478, -4)
 script = ExtResource("1_gkfvj")
 metadata/_edit_group_ = true
 

@@ -52,8 +52,8 @@ func _ready():
 	#if $UI/blank/Panel/Date.has_signal("day_changed"):
 		#$UI/blank/Panel/Date.day_changed.connect(_on_weather_change)
 		
-	for i in range(3):
-		spawn_animal()
+	#for i in range(3):
+		#spawn_animal()
 	
 	setup_farmkit()
 	#setup_simple_weather()
@@ -74,7 +74,7 @@ func setup_weather_station():
 		return
 	
 	# 날씨 관측소 위치 설정 (원하는 위치로 조정 가능)
-	weather_station.position = Vector2(200, 200)
+	weather_station.position = Vector2(500, -850)
 	
 	print("날씨 관측소 설정 완료 - 위치: ", weather_station.position)
 
@@ -205,15 +205,15 @@ func load_data_csv():
 		
 		
 		# 키보드 입력으로 farmkit 제어
-func _input(event):
+#func _input(event):
 	# 기존 _input 코드...
 	
-	# F키로 farmkit 표시/숨기기
-	if event.is_action_pressed("ui_cancel"):  # ESC 키
-		toggle_farmkit()
-	
-	# R키로 farmkit 새로고침
-	elif Input.is_action_just_pressed("ui_accept"):  # Enter 키
-		if farmkit:
-			farmkit._on_refresh_pressed()
+	## F키로 farmkit 표시/숨기기
+	#if event.is_action_pressed("ui_cancel"):  # ESC 키
+		#toggle_farmkit()
+	#
+	## R키로 farmkit 새로고침
+	#elif Input.is_action_just_pressed("ui_accept"):  # Enter 키
+		#if farmkit:
+			#farmkit._on_refresh_pressed()
 			
