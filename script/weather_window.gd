@@ -163,7 +163,7 @@ func layout_popup_elements():
 		var screen_size = get_viewport().get_visible_rect().size
 		var popup_size = Vector2(700, 500)  # 더 크게!
 		size = popup_size
-		container.position = Vector2(40, 90)
+		container.position = Vector2(60, 120)
 		
 		# 제목과 닫기 버튼
 		if title_label:

@@ -43,13 +43,13 @@ func _on_body_exited(body):
 
 func show_interaction_ui():
 	interaction_ui.visible = true
-	interaction_label.text = "스페이스바"
+	interaction_label.text = "V키"
 	
 func hide_interaction_ui():
 	interaction_ui.visible = false
 
 func _process(delta):
-	if can_interact and Input.is_action_just_pressed("ui_accept"):  # 스페이스바
+	if can_interact and Input.is_action_just_pressed("enterance"):  # 스페이스바
 		# 날씨 창 토글
 		if weather_instance.visible:
 			weather_instance.hide()

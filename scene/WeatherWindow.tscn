@@ -19,7 +19,7 @@ grow_vertical = 2
 script = ExtResource("1_yunlq")
 
 [node name="weather_window" type="NinePatchRect" parent="."]
-custom_minimum_size = Vector2(700, 600)
+custom_minimum_size = Vector2(900, 750)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
