@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://script/AIRobot.gd" id="1_dd324"]
 
 [node name="AIRobot" type="Control"]
+z_index = 2
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -10,56 +11,62 @@ offset_bottom = 40.0
 script = ExtResource("1_dd324")
 
 [node name="Panel" type="Panel" parent="."]
+z_index = 2
 layout_mode = 0
+offset_right = 160.0
+offset_bottom = 104.0
+
+[node name="container" type="Control" parent="Panel"]
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="RobotImage" type="TextureRect" parent="Panel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="MoneyLabel" type="Label" parent="Panel"]
+[node name="TitleLabel" type="Label" parent="Panel/container"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="InfoLabel" type="Label" parent="Panel"]
+[node name="MoneyDisplay" type="Label" parent="Panel/container"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="Paybutton" type="Button" parent="Panel"]
+[node name="InfoDisplay" type="Label" parent="Panel/container"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="PayButton" type="Button" parent="Panel/container"]
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
 
-[node name="Cancelbutton" type="Button" parent="Panel"]
+[node name="CancelButton" type="Button" parent="Panel/container"]
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
 
-[node name="ChatArea" type="Panel" parent="Panel"]
-layout_mode = 0
+[node name="ChatArea" type="Control" parent="Panel/container"]
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="ChatHistory" type="TextEdit" parent="Panel/ChatArea"]
+[node name="ChatHistory" type="TextEdit" parent="Panel/container/ChatArea"]
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
 
-[node name="InputField" type="LineEdit" parent="Panel/ChatArea"]
+[node name="InputField" type="LineEdit" parent="Panel/container/ChatArea"]
 layout_mode = 0
 offset_right = 67.0625
 offset_bottom = 31.0
 
-[node name="SendButton" type="Button" parent="Panel/ChatArea"]
+[node name="SendButton" type="Button" parent="Panel/container/ChatArea"]
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
 
-[node name="CloseChatButton" type="Button" parent="Panel/ChatArea"]
+[node name="CloseChatButton" type="Button" parent="Panel/container/ChatArea"]
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0

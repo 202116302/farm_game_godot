@@ -38,7 +38,6 @@ offset_bottom = 100.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_xf0h7")
 
 [node name="Date" type="Label" parent="blank/Panel"]
-visible = false
 layout_mode = 1
 offset_left = 20.0
 offset_top = 10.0

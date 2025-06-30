@@ -416,7 +416,7 @@ tile_set = SubResource("TileSet_7sgn1")
 [node name="GameTimer" type="Timer" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("3_d5ums")]
-z_index = 1
+z_index = 2
 position = Vector2(328, 80)
 
 [node name="barn_menu" parent="." instance=ExtResource("28_cstnk")]
@@ -433,6 +433,7 @@ offset_right = -3.52008
 offset_bottom = 20.128
 
 [node name="UI" parent="." instance=ExtResource("6_57udu")]
+visible = true
 
 [node name="barn" parent="." instance=ExtResource("27_0ln6o")]
 position = Vector2(-48, -177)

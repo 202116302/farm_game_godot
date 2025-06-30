@@ -6,17 +6,25 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m753x"]
 size = Vector2(248, 129.25)
 
-[node name="Robot" type="Node2D"]
+[node name="Robot" type="Area2D"]
+script = ExtResource("1_5ekhv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-124, 191.375)
+shape = SubResource("RectangleShape2D_m753x")
 
 [node name="RobotSprite" type="Sprite2D" parent="."]
-z_index = 1
 position = Vector2(-113, 113)
 scale = Vector2(0.548, 0.548)
 texture = ExtResource("1_ojghk")
 
-[node name="InteractionArea" type="Area2D" parent="."]
-script = ExtResource("1_5ekhv")
+[node name="InteractionUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-position = Vector2(-124, 191.375)
-shape = SubResource("RectangleShape2D_m753x")
+[node name="Label" type="Label" parent="InteractionUI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

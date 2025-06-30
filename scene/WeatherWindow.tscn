@@ -60,4 +60,36 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="TabWeather" type="Button" parent="weather_window/container"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="TabCultivation" type="Button" parent="weather_window/container"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="CropSelector" type="OptionButton" parent="weather_window/container"]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 20.0
+
+[node name="ChatDisplay" type="RichTextLabel" parent="weather_window/container"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SendButton" type="Button" parent="weather_window/container"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="ChatInput" type="LineEdit" parent="weather_window/container"]
+layout_mode = 0
+offset_right = 67.0625
+offset_bottom = 31.0
+
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="HTTPRequestCultivation" type="HTTPRequest" parent="."]
