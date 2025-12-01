@@ -1,19 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://bb4rwmro8g4f1"]
+[gd_scene load_steps=6 format=3 uid="uid://b30au4qripqpm"]
 
-[ext_resource type="Script" uid="uid://dmosmd558qnls" path="res://script/WeatherStation.gd" id="1_4w8ub"]
-[ext_resource type="Texture2D" uid="uid://j1maus2kmprj" path="res://asset/object/weather_KMA.png" id="2_o7uqf"]
-[ext_resource type="FontFile" uid="uid://g0j56eipukr7" path="res://asset/font/font2.ttf" id="3_b6v5w"]
+[ext_resource type="Script" uid="uid://b00arqbg54klg" path="res://script/WeatherStation2.gd" id="1_bb441"]
+[ext_resource type="Texture2D" uid="uid://j1maus2kmprj" path="res://asset/object/weather_KMA.png" id="2_rv7d6"]
+[ext_resource type="FontFile" uid="uid://g0j56eipukr7" path="res://asset/font/font2.ttf" id="3_fymrp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bkkkk"]
 radius = 24.829016
 
 [sub_resource type="LabelSettings" id="LabelSettings_hd878"]
 line_spacing = 6.0
-font = ExtResource("3_b6v5w")
+font = ExtResource("3_fymrp")
 font_size = 27
 
-[node name="WeatherStation" type="Area2D"]
-script = ExtResource("1_4w8ub")
+[node name="WeatherStation2" type="Area2D"]
+script = ExtResource("1_bb441")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(104, 128)
@@ -23,7 +23,7 @@ shape = SubResource("CircleShape2D_bkkkk")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(105, 104)
 scale = Vector2(0.5032168, 0.5032168)
-texture = ExtResource("2_o7uqf")
+texture = ExtResource("2_rv7d6")
 
 [node name="InteractionUI" type="Control" parent="."]
 layout_mode = 3

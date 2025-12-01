@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6nu30siqrb65"]
+
+[ext_resource type="Texture2D" uid="uid://blt4h0r6w33vl" path="res://asset/object/greenhouse_inside.png" id="1_5fyh1"]
+[ext_resource type="PackedScene" uid="uid://c5yim718b3cub" path="res://scene/weather_data.tscn" id="2_xuqua"]
+[ext_resource type="PackedScene" uid="uid://c8akya0bxjrr5" path="res://scene/chatbot.tscn" id="3_doifd"]
+[ext_resource type="PackedScene" uid="uid://dhtstrswxh7mj" path="res://scene/WeatherStation3.tscn" id="4_doifd"]
+
+[node name="Inside" type="Node2D"]
+
+[node name="GreenhouseInside" type="Sprite2D" parent="."]
+position = Vector2(-1968.4312, -3.8337402)
+scale = Vector2(0.7529704, 0.63671875)
+texture = ExtResource("1_5fyh1")
+
+[node name="WeatherData" parent="." instance=ExtResource("2_xuqua")]
+
+[node name="chatbot" parent="." instance=ExtResource("3_doifd")]
+position = Vector2(-2460, -62)
+
+[node name="dashboard" parent="." instance=ExtResource("4_doifd")]
+position = Vector2(-2575, 135)

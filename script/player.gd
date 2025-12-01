@@ -18,6 +18,34 @@ var harvested_lettuce_count = 0  # 수확한 상추 개수
 
 var money = 0
 
+var can_teleport = false
+var teleport_target_position = Vector2.ZERO
+var current_teleport_zone = null  # 현재 있는 텔레포트 존
+var last_teleport_zone = null 
+var camera_following = true 
+
+# 카메라 고정/해제 함수 추가
+func lock_camera(lock_position: Vector2):
+	if camera:
+		camera_following = false
+		camera.position_smoothing_enabled = false
+		camera.enabled = false  # 플레이어의 카메라 비활성화
+		
+		# 고정 카메라 위치 설정
+		camera.global_position = lock_position
+		print("카메라 고정: ", lock_position)
+
+func unlock_camera():
+	if camera:
+		camera_following = true
+		camera.enabled = true
+		camera.position_smoothing_enabled = true
+		camera.make_current()
+		# 카메라를 다시 플레이어 위치로
+		camera.position = Vector2.ZERO  # 상대 위치 초기화
+		print("카메라 해제 - 플레이어 추적")
+		
+		
 func _ready():
 # 타일맵 참조 확인
 	if not background_tilemap:
@@ -41,6 +69,15 @@ func _ready():
 		date_label.day_changed.connect(_on_day_changed)
 		
 	setup_player_camera()
+	
+	# 텔레포트 프롬프트 참조
+	var teleport_prompt = get_node_or_null("/root/Main/UI/blank/Panel/TeleportPrompt")
+	if teleport_prompt:
+		teleport_prompt.visible = false
+		print("TeleportPrompt Label을 찾았습니다")
+	else:
+		print("TeleportPrompt Label을 찾을 수 없습니다")
+	
 	
 	
 	
@@ -114,7 +151,81 @@ func _input(event):
 	# 줌 아웃
 			camera.zoom = camera.zoom * 0.9
 			camera.zoom = camera.zoom.clamp(Vector2(0.5, 0.5), Vector2(2.0, 2.0))
+			
+	if Input.is_action_just_pressed("ui_accept") and can_teleport:
+		teleport_to_target()
+
+
+
+func enable_teleport(target_pos: Vector2, zone: Area2D = null):
+	can_teleport = true
+	teleport_target_position = target_pos
+	current_teleport_zone = zone
+	
+	# 텔레포트 존의 프롬프트 표시
+	if zone and zone.has_method("show_prompt"):
+		zone.show_prompt()
+	
+	print("스페이스바를 눌러 이동하세요")
+
+func disable_teleport():
+		# 텔레포트 존의 프롬프트 숨김
+	if current_teleport_zone and current_teleport_zone.has_method("hide_prompt"):
+		current_teleport_zone.hide_prompt()
 		
+	can_teleport = false
+	current_teleport_zone = null
+	teleport_target_position = Vector2.ZERO
+	
+
+	
+	print("텔레포트 영역에서 벗어났습니다")
+
+func teleport_to_target():
+	if can_teleport and teleport_target_position != Vector2.ZERO:
+		# 프롬프트 숨김
+		if current_teleport_zone and current_teleport_zone.has_method("hide_prompt"):
+			current_teleport_zone.hide_prompt()
+		
+		# 텔레포트 존 정보 저장
+		var source_zone = current_teleport_zone
+		
+		# 위치 이동
+		global_position = teleport_target_position
+		print("텔레포트 완료! 위치: ", teleport_target_position)
+		
+		# 목적지 텔레포트 존 찾기
+		await get_tree().create_timer(0.1).timeout
+		var target_zone = find_teleport_zone_at_position(teleport_target_position)
+		
+		# 카메라 모드 설정
+		if target_zone and target_zone.has_method("should_lock_camera"):
+			if target_zone.should_lock_camera():
+				# 카메라 고정
+				var lock_pos = target_zone.get_camera_lock_position()
+				if lock_pos == Vector2.ZERO:
+					lock_pos = teleport_target_position  # 기본값: 텔레포트 목적지
+				lock_camera(lock_pos)
+			else:
+				# 카메라 해제
+				unlock_camera()
+		else:
+			# 기본: 카메라 따라가기
+			unlock_camera()
+		
+		can_teleport = false
+		current_teleport_zone = null
+		
+		
+# 특정 위치 근처의 텔레포트 존 찾기
+func find_teleport_zone_at_position(pos: Vector2, radius: float = 100.0) -> Area2D:
+	var zones = get_tree().get_nodes_in_group("teleport_zone")
+	for zone in zones:
+		if zone.global_position.distance_to(pos) < radius:
+			return zone
+	return null
+	
+	
 var watered_dates = {} 
 
 func water_ground():
@@ -203,11 +314,20 @@ func _on_feet_area_entered(area: Area2D):
 				break
 		print("농장 영역(" + area.name + ")에 들어왔습니다")
 
+	if area.is_in_group("teleport_zone"):
+		if area.has_method("get_target_position"):
+			var target = area.get_target_position()
+			enable_teleport(target, area)
+	
+	
 func _on_feet_area_exited(area: Area2D):
 	if area.is_in_group("farm_field"):
 		if current_field == area:
 			current_field = null
 		print("농장 영역(" + area.name + ")에서 나갔습니다")
+		
+	if area.is_in_group("teleport_zone"):
+		disable_teleport()
 
 func hoe_ground():
 	#if not background_tilemap:

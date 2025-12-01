@@ -1,45 +1,51 @@
-[gd_scene load_steps=71 format=4 uid="uid://bcvyobqghhqbc"]
+[gd_scene load_steps=80 format=4 uid="uid://bcvyobqghhqbc"]
 
-[ext_resource type="Script" path="res://script/main.gd" id="1_rcftn"]
-[ext_resource type="Texture2D" uid="uid://c2ah7ia80wx5n" path="res://asset/tile/Grasstile/F0.png" id="2_nxrc2"]
+[ext_resource type="Script" uid="uid://damj4whbmd8ed" path="res://script/main.gd" id="1_rcftn"]
+[ext_resource type="Texture2D" uid="uid://c1l04w1i36wsw" path="res://asset/tile/Grasstile/F0.png" id="2_nxrc2"]
 [ext_resource type="PackedScene" uid="uid://4tqiqdnl2vcw" path="res://scene/AIRobot.tscn" id="2_pymvh"]
 [ext_resource type="PackedScene" uid="uid://ll1i7ubcwyix" path="res://scene/player.tscn" id="3_d5ums"]
-[ext_resource type="Texture2D" uid="uid://cgqnwesvmvy4s" path="res://asset/tile/Grasstile/F1.png" id="3_x0q2e"]
-[ext_resource type="Texture2D" uid="uid://ds02e6lao1u5b" path="res://asset/tile/Grasstile/F2.png" id="4_0kfha"]
-[ext_resource type="Texture2D" uid="uid://bs5bmgtf25vmt" path="res://asset/tile/Soiltile/64/0.png" id="4_oar3a"]
-[ext_resource type="Texture2D" uid="uid://jbby8vxyot2o" path="res://asset/tile/Grasstile/F3.png" id="5_ay4vi"]
-[ext_resource type="Texture2D" uid="uid://bnpjyg5ikx7ex" path="res://asset/tile/Soiltile/64/1.png" id="5_roxtr"]
+[ext_resource type="Texture2D" uid="uid://cf5bqtgntsw67" path="res://asset/tile/Grasstile/F1.png" id="3_x0q2e"]
+[ext_resource type="Texture2D" uid="uid://c385dq0d74efh" path="res://asset/tile/Grasstile/F2.png" id="4_0kfha"]
+[ext_resource type="Texture2D" uid="uid://dksi4kovwwa6a" path="res://asset/tile/Soiltile/64/0.png" id="4_oar3a"]
+[ext_resource type="Texture2D" uid="uid://bksywgmylawva" path="res://asset/tile/Grasstile/F3.png" id="5_ay4vi"]
+[ext_resource type="Texture2D" uid="uid://dlo6jinalel5s" path="res://asset/tile/Soiltile/64/1.png" id="5_roxtr"]
 [ext_resource type="PackedScene" uid="uid://bqp6bexf0w4gi" path="res://scene/UI.tscn" id="6_57udu"]
-[ext_resource type="Texture2D" uid="uid://bjbq1cwqiw7tn" path="res://asset/tile/Soiltile/64/2.png" id="6_e8uul"]
-[ext_resource type="Texture2D" uid="uid://djgitw0lx1mxg" path="res://asset/tile/Grasstile/F4.png" id="6_pnesp"]
-[ext_resource type="Texture2D" uid="uid://c7gb2oc2sv6cu" path="res://asset/tile/Soiltile/64/3.png" id="7_q5yx3"]
-[ext_resource type="Texture2D" uid="uid://ouqntph4lgux" path="res://asset/tile/Soiltile/64/4.png" id="8_6x82p"]
-[ext_resource type="Texture2D" uid="uid://ch4djmjhhcfsp" path="res://asset/tile/Soiltile/64/5.png" id="9_hdyj2"]
-[ext_resource type="Texture2D" uid="uid://cq7ctvmbbdpt2" path="res://asset/tile/Soiltile/64/8.png" id="9_umoxm"]
-[ext_resource type="Texture2D" uid="uid://b627revnyxbd3" path="res://asset/tile/Soiltile/64/6.png" id="10_7mbd2"]
-[ext_resource type="Texture2D" uid="uid://owreu8ibdyml" path="res://asset/tile/Soiltile/64/7.png" id="11_nh3wv"]
-[ext_resource type="Texture2D" uid="uid://nth85vx5f4ei" path="res://asset/tile/Soiltile/64/9.png" id="13_ie7gc"]
-[ext_resource type="Texture2D" uid="uid://cdk544lp2tgb0" path="res://asset/tile/Soiltile/64/10.png" id="15_hf50o"]
-[ext_resource type="Texture2D" uid="uid://c77pwfqjaoy3" path="res://asset/tile/Soiltile/64/11.png" id="16_h2psw"]
-[ext_resource type="Texture2D" uid="uid://5ehof3h0t7m8" path="res://asset/tile/Soiltile/64/12.png" id="17_idsgl"]
-[ext_resource type="Texture2D" uid="uid://dt4pc37ppwe24" path="res://asset/tile/Soiltile/64/13.png" id="18_f8sk3"]
-[ext_resource type="Texture2D" uid="uid://c2ygnti4ybykn" path="res://asset/tile/Soiltile/64/14.png" id="19_kklk8"]
-[ext_resource type="Texture2D" uid="uid://bbykpbms5mfk1" path="res://asset/tile/Soiltile/64/15.png" id="20_ho5de"]
-[ext_resource type="Texture2D" uid="uid://bojw0l0ip5kdn" path="res://asset/tile/Soiltile/64/dry_soil.png" id="23_84nlo"]
-[ext_resource type="Texture2D" uid="uid://ct0t3yhgksxu8" path="res://asset/object/fence2.png" id="24_5balg"]
-[ext_resource type="Texture2D" uid="uid://s5fu8ubrohuj" path="res://asset/object/fence3.png" id="25_tcipd"]
-[ext_resource type="Texture2D" uid="uid://b6pyp38mcuwur" path="res://asset/object/fence4.png" id="26_bwgx0"]
+[ext_resource type="Texture2D" uid="uid://6jn3s4je6yq6" path="res://asset/tile/Soiltile/64/2.png" id="6_e8uul"]
+[ext_resource type="Texture2D" uid="uid://r6tyl1ewdkco" path="res://asset/tile/Grasstile/F4.png" id="6_pnesp"]
+[ext_resource type="Texture2D" uid="uid://due7clkm0xicl" path="res://asset/tile/Soiltile/64/3.png" id="7_q5yx3"]
+[ext_resource type="Texture2D" uid="uid://1iiex4jtvq6g" path="res://asset/tile/Soiltile/64/4.png" id="8_6x82p"]
+[ext_resource type="Texture2D" uid="uid://kc8sq83tno48" path="res://asset/tile/Soiltile/64/5.png" id="9_hdyj2"]
+[ext_resource type="Texture2D" uid="uid://c77fpsk3bsw2r" path="res://asset/tile/Soiltile/64/8.png" id="9_umoxm"]
+[ext_resource type="Texture2D" uid="uid://dv0tghwof4tab" path="res://asset/tile/Soiltile/64/6.png" id="10_7mbd2"]
+[ext_resource type="Texture2D" uid="uid://b163xrltf1hsh" path="res://asset/tile/Soiltile/64/7.png" id="11_nh3wv"]
+[ext_resource type="Texture2D" uid="uid://dygoxt7n4vyhg" path="res://asset/tile/Soiltile/64/9.png" id="13_ie7gc"]
+[ext_resource type="Texture2D" uid="uid://xn4rhsiufn7" path="res://asset/tile/Soiltile/64/10.png" id="15_hf50o"]
+[ext_resource type="Texture2D" uid="uid://7nshfkccsdo8" path="res://asset/tile/Soiltile/64/11.png" id="16_h2psw"]
+[ext_resource type="Texture2D" uid="uid://djjh7xbb8qspl" path="res://asset/tile/Soiltile/64/12.png" id="17_idsgl"]
+[ext_resource type="Texture2D" uid="uid://cge1x0uvfyudg" path="res://asset/tile/Soiltile/64/13.png" id="18_f8sk3"]
+[ext_resource type="Texture2D" uid="uid://ynvi7682ga8j" path="res://asset/tile/Soiltile/64/14.png" id="19_kklk8"]
+[ext_resource type="Texture2D" uid="uid://bb7xs0dwxv0rp" path="res://asset/tile/Soiltile/64/15.png" id="20_ho5de"]
+[ext_resource type="Texture2D" uid="uid://dj7c6jvukj4dj" path="res://asset/tile/Soiltile/64/dry_soil.png" id="23_84nlo"]
+[ext_resource type="Texture2D" uid="uid://dd42ij153cj4n" path="res://asset/object/fence2.png" id="24_5balg"]
+[ext_resource type="Texture2D" uid="uid://bchg8af3q67xs" path="res://asset/object/fence3.png" id="25_tcipd"]
+[ext_resource type="Texture2D" uid="uid://ysqntvh8u8o8" path="res://asset/object/fence4.png" id="26_bwgx0"]
 [ext_resource type="PackedScene" uid="uid://bqpi17qy8haio" path="res://scene/field.tscn" id="26_ia1m0"]
 [ext_resource type="PackedScene" uid="uid://2roi4uoduehv" path="res://scene/barn.tscn" id="27_0ln6o"]
-[ext_resource type="Texture2D" uid="uid://c1817xg45dg8" path="res://asset/object/fence5.png" id="27_eqhig"]
+[ext_resource type="Texture2D" uid="uid://dtl7oouhxdlpi" path="res://asset/object/fence5.png" id="27_eqhig"]
 [ext_resource type="PackedScene" uid="uid://b2kn57hccxfcd" path="res://scene/barn_menu.tscn" id="28_cstnk"]
-[ext_resource type="Texture2D" uid="uid://ckra7tmn2v1re" path="res://asset/object/fence6.png" id="28_yccke"]
-[ext_resource type="Texture2D" uid="uid://b6w35xo2nbjhn" path="res://asset/object/fence.png" id="29_pskra"]
+[ext_resource type="Texture2D" uid="uid://du7q8af4d3mr1" path="res://asset/object/fence6.png" id="28_yccke"]
+[ext_resource type="Texture2D" uid="uid://bjyrv6x0gbv8w" path="res://asset/object/fence.png" id="29_pskra"]
 [ext_resource type="PackedScene" uid="uid://vdxrp0uccku6" path="res://scene/farmkit.tscn" id="30_i44i5"]
-[ext_resource type="PackedScene" uid="uid://bsps6ei8ewg0w" path="res://scene/WeatherStation.tscn" id="31_uukjm"]
+[ext_resource type="PackedScene" uid="uid://bb4rwmro8g4f1" path="res://scene/WeatherStation.tscn" id="31_uukjm"]
 [ext_resource type="PackedScene" uid="uid://c5yim718b3cub" path="res://scene/weather_data.tscn" id="31_vn165"]
 [ext_resource type="PackedScene" uid="uid://mcm17a20e5ym" path="res://scene/fence.tscn" id="38_5xg3v"]
 [ext_resource type="PackedScene" uid="uid://cfuips2el8aw6" path="res://scene/Robot.tscn" id="40_re66f"]
+[ext_resource type="Texture2D" uid="uid://cx76b34ret71n" path="res://asset/object/greenhouse.png" id="41_2km5d"]
+[ext_resource type="Script" uid="uid://b0l3eenpw7dq8" path="res://script/teleport_zone.gd" id="42_rhsrv"]
+[ext_resource type="PackedScene" uid="uid://c6nu30siqrb65" path="res://scene/inside.tscn" id="43_abiby"]
+[ext_resource type="Script" uid="uid://btfy257uucoht" path="res://script/teleport_zone_b.gd" id="44_rhsrv"]
+[ext_resource type="LabelSettings" uid="uid://cblnpimsuvkyd" path="res://texttype.tres" id="45_abiby"]
+[ext_resource type="Script" uid="uid://b00arqbg54klg" path="res://script/WeatherStation2.gd" id="46_mbros"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hnpik"]
 texture = ExtResource("2_nxrc2")
@@ -395,6 +401,15 @@ sources/3 = SubResource("TileSetAtlasSource_bu45v")
 sources/4 = SubResource("TileSetAtlasSource_84v7o")
 sources/5 = SubResource("TileSetAtlasSource_wn1wj")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbros"]
+size = Vector2(182, 103)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mbros"]
+font_color = Color(0.98309547, 0.09600983, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2km5d"]
+size = Vector2(132, 71.625)
+
 [node name="Main" type="Node"]
 script = ExtResource("1_rcftn")
 
@@ -417,7 +432,7 @@ tile_set = SubResource("TileSet_7sgn1")
 
 [node name="Player" parent="." instance=ExtResource("3_d5ums")]
 z_index = 2
-position = Vector2(328, 80)
+position = Vector2(240, 905)
 
 [node name="barn_menu" parent="." instance=ExtResource("28_cstnk")]
 visible = false
@@ -433,7 +448,6 @@ offset_right = -3.52008
 offset_bottom = 20.128
 
 [node name="UI" parent="." instance=ExtResource("6_57udu")]
-visible = true
 
 [node name="barn" parent="." instance=ExtResource("27_0ln6o")]
 position = Vector2(-48, -177)
@@ -448,12 +462,56 @@ offset_right = -496.0
 offset_bottom = -904.0
 
 [node name="WeatherData" parent="." instance=ExtResource("31_vn165")]
-visible = false
 
 [node name="field" parent="." instance=ExtResource("26_ia1m0")]
 position = Vector2(-47, -14)
 
 [node name="WeatherStation" parent="." instance=ExtResource("31_uukjm")]
-position = Vector2(520, -760)
+position = Vector2(558, -779)
 
 [node name="fence" parent="." instance=ExtResource("38_5xg3v")]
+
+[node name="Greenhouse" type="Sprite2D" parent="."]
+position = Vector2(748.00006, 696)
+scale = Vector2(1.512255, 1.512255)
+texture = ExtResource("41_2km5d")
+
+[node name="TeleportZone_A" type="Area2D" parent="."]
+script = ExtResource("42_rhsrv")
+target_position = Vector2(-1153.855, 862)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TeleportZone_A"]
+position = Vector2(939, 852.5)
+shape = SubResource("RectangleShape2D_mbros")
+
+[node name="PromptLabel" type="Label" parent="TeleportZone_A"]
+offset_left = 897.0
+offset_top = 931.0
+offset_right = 977.0
+offset_bottom = 954.0
+text = "스페이스바"
+label_settings = SubResource("LabelSettings_mbros")
+horizontal_alignment = 1
+
+[node name="Inside" parent="." instance=ExtResource("43_abiby")]
+position = Vector2(820, 865)
+
+[node name="TeleportZone_B" type="Area2D" parent="."]
+script = ExtResource("44_rhsrv")
+target_position = Vector2(939, 862.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TeleportZone_B"]
+position = Vector2(-1133, 880)
+shape = SubResource("RectangleShape2D_2km5d")
+
+[node name="PromptLabel2" type="Label" parent="TeleportZone_B"]
+offset_left = -1183.0
+offset_top = 925.0
+offset_right = -1093.0
+offset_bottom = 948.0
+text = "스페이스바"
+label_settings = ExtResource("45_abiby")
+
+[node name="KMA" parent="." instance=ExtResource("31_uukjm")]
+position = Vector2(40, 676)
+script = ExtResource("46_mbros")

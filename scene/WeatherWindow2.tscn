@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4nd1n7r2gef6"]
+[gd_scene load_steps=3 format=3 uid="uid://beutdibirochp"]
 
-[ext_resource type="Script" uid="uid://fm2dn6523l8e" path="res://script/weather_window.gd" id="1_yunlq"]
-[ext_resource type="Texture2D" uid="uid://exmrqgjvx01v" path="res://asset/object/barn_menu.png" id="2_5laju"]
+[ext_resource type="Script" uid="uid://cv8jdkal0qwca" path="res://script/weather_window2.gd" id="1_vqp8e"]
+[ext_resource type="Texture2D" uid="uid://exmrqgjvx01v" path="res://asset/object/barn_menu.png" id="2_xfsyh"]
 
-[node name="WeatherWindow" type="Control"]
+[node name="WeatherWindow2" type="Control"]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -16,14 +16,14 @@ offset_right = 300.0
 offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_yunlq")
+script = ExtResource("1_vqp8e")
 
 [node name="weather_window" type="NinePatchRect" parent="."]
 custom_minimum_size = Vector2(900, 750)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("2_5laju")
+texture = ExtResource("2_xfsyh")
 
 [node name="container" type="Control" parent="weather_window"]
 anchors_preset = 0
@@ -36,7 +36,6 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="RegionSelector" type="OptionButton" parent="weather_window/container"]
-visible = false
 layout_mode = 0
 offset_right = 32.0
 offset_bottom = 20.0
@@ -67,6 +66,7 @@ offset_right = 8.0
 offset_bottom = 8.0
 
 [node name="TabCultivation" type="Button" parent="weather_window/container"]
+visible = false
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
@@ -78,6 +78,7 @@ offset_right = 32.0
 offset_bottom = 20.0
 
 [node name="ChatDisplay" type="RichTextLabel" parent="weather_window/container"]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -92,13 +93,6 @@ layout_mode = 0
 offset_right = 67.0625
 offset_bottom = 31.0
 
-[node name="AutoAdviceButton" type="Button" parent="weather_window/container"]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
 [node name="HTTPRequestCultivation" type="HTTPRequest" parent="."]
-
-[node name="HTTPRequestWeather" type="HTTPRequest" parent="."]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bqp6bexf0w4gi"]
+[gd_scene load_steps=10 format=3 uid="uid://bqp6bexf0w4gi"]
 
-[ext_resource type="FontFile" uid="uid://bp3qhqkvcxah4" path="res://asset/font/font2.ttf" id="1_1nuwk"]
-[ext_resource type="Texture2D" uid="uid://hlxyv87foqqd" path="res://asset/object/UI1.png" id="1_dwysc"]
-[ext_resource type="Script" path="res://script/date.gd" id="2_yk1sg"]
+[ext_resource type="FontFile" uid="uid://g0j56eipukr7" path="res://asset/font/font2.ttf" id="1_1nuwk"]
+[ext_resource type="Texture2D" uid="uid://c37e5aos7sx3w" path="res://asset/object/UI1.png" id="1_dwysc"]
+[ext_resource type="Script" uid="uid://ccdf7k4swtvgj" path="res://script/date.gd" id="2_yk1sg"]
+[ext_resource type="LabelSettings" uid="uid://cblnpimsuvkyd" path="res://texttype.tres" id="4_wbuqp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o1n6i"]
 bg_color = Color(0.72549, 0.717647, 0.207843, 0)
@@ -64,3 +65,21 @@ offset_right = 102.0
 offset_bottom = 83.0
 text = "날씨 : 맑음 "
 label_settings = SubResource("LabelSettings_db0rd")
+
+[node name="TeleportPrompt" type="Label" parent="blank/Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -66.5
+offset_top = -23.0
+offset_right = 66.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "스페이스바로 이동"
+label_settings = ExtResource("4_wbuqp")
+horizontal_alignment = 1
+vertical_alignment = 1
